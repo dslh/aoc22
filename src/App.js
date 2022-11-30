@@ -6,9 +6,15 @@ import Container from 'react-bootstrap/Container';
 import { Outlet } from 'react-router-dom';
 import { LinkContainer } from 'react-router-bootstrap';
 
+const Day = ({ day }) => (
+  <LinkContainer to={`/days/${day}`}>
+    <NavDropdown.Item>Day {day}</NavDropdown.Item>
+  </LinkContainer>
+);
+
 const App = () => (
   <>
-    <Navbar bg="light" expand="sm">
+    <Navbar bg="info bg-gradient" expand="sm">
       <Container>
         <LinkContainer to="/">
           <Navbar.Brand>
@@ -23,9 +29,8 @@ const App = () => (
               <Nav.Link>Home</Nav.Link>
             </LinkContainer>
             <NavDropdown title="Days" id="basic-navbar-dropdown">
-              <LinkContainer to="/days/1">
-                <NavDropdown.Item>Day 1</NavDropdown.Item>
-              </LinkContainer>
+              <Day day={0} />
+              <Day day={1} />
             </NavDropdown>
           </Nav>
         </Navbar.Collapse>

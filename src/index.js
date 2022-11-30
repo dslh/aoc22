@@ -7,7 +7,11 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 
-const Index = () => <>Index me baby</>;
+import Days from './days';
+import Zero from './days/0';
+import One from './days/1';
+
+const Index = () => <>Select a day from the menu above to start.</>;
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
@@ -16,6 +20,11 @@ root.render(
       <Routes>
         <Route path="/" element={<App />}>
           <Route index element={<Index />} />
+
+          <Route path="days" element={<Days />} >
+            <Route path="0" element={<Zero />} />
+            <Route path="1" element={<One />} />
+          </Route>
         </Route>
       </Routes>
     </BrowserRouter>
