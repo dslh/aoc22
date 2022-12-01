@@ -11,6 +11,22 @@ import Days from './days';
 import Zero from './days/0';
 import One from './days/1';
 
+import {
+  Chart as ChartJS,
+  CategoryScale,
+  LinearScale,
+  BarElement,
+  Title,
+  Tooltip
+} from 'chart.js';
+ChartJS.register(
+  CategoryScale,
+  LinearScale,
+  BarElement,
+  Title,
+  Tooltip
+);
+
 const Index = () => <>Select a day from the menu above to start.</>;
 
 const root = ReactDOM.createRoot(document.getElementById('root'));

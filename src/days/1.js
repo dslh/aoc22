@@ -1,7 +1,6 @@
 import { useState, useMemo } from 'react';
 import useFetch from 'use-http';
 
-import Button from 'react-bootstrap/Button';
 import Stack from 'react-bootstrap/Stack';
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
@@ -15,6 +14,8 @@ import sample from '../input/1.sample.txt';
 
 import partOne from './1/part-one';
 import partTwo from './1/part-two';
+
+import View from './1/view';
 
 const PartOne = ({ data }) => {
   const max = useMemo(() => partOne(data), [data]);
@@ -50,6 +51,7 @@ const One = () => {
         <Col md="9">
           {data && <Stack gap={3}>
             <pre>{JSON.stringify(data)}</pre>
+            <View data={data} />
             <PartOne data={data} />
             <PartTwo data={data} />
           </Stack>}
