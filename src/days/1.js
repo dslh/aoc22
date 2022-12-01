@@ -32,7 +32,7 @@ const One = () => {
   const [source, setSource] = useState(sample);
   const request = useFetch(source, [source]);
 
-  const data  = useMemo(() => {
+  const data = useMemo(() => {
     if (!request.data) return;
 
     return request.data.split('\n\n').map(elf =>
