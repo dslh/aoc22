@@ -29,7 +29,6 @@ const App = () => (
               <Nav.Link>Home</Nav.Link>
             </LinkContainer>
             <NavDropdown title="Days" id="basic-navbar-dropdown">
-              <Day day={0} />
               <Day day={1} />
             </NavDropdown>
           </Nav>
