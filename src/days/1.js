@@ -1,5 +1,3 @@
-import { useMemo } from 'react';
-
 import Stack from 'react-bootstrap/Stack';
 
 import SourceLoader from 'components/source-loader';

@@ -13,7 +13,7 @@ const SourceLoader = ({ input, sample, parser, children }) => {
   const [source, setSource] = useState(sample);
   const request = useFetch(source, [source]);
 
-  const data = useMemo(() => (request.data && parser(request.data)), [request.data]);
+  const data = useMemo(() => (request.data && parser(request.data)), [request.data, parser]);
 
   return <Stack gap={3}>
     <Stack gap={3} direction="horizontal" className="mx-auto">

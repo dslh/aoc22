@@ -32,21 +32,19 @@ const Index = () => <>Select a day from the menu above to start.</>;
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
-  <React.StrictMode>
-    <HashRouter>
-      <Routes>
-        <Route path="/" element={<App />}>
-          <Route index element={<Index />} />
+  <HashRouter>
+    <Routes>
+      <Route path="/" element={<App />}>
+        <Route index element={<Index />} />
 
-          <Route path="days" element={<Days />} >
-            <Route path="0" element={<Zero />} />
-            <Route path="1" element={<One />} />
-            <Route path="2" element={<Two />} />
-          </Route>
+        <Route path="days" element={<Days />} >
+          <Route path="0" element={<Zero />} />
+          <Route path="1" element={<One />} />
+          <Route path="2" element={<Two />} />
         </Route>
-      </Routes>
-    </HashRouter>
-  </React.StrictMode>
+      </Route>
+    </Routes>
+  </HashRouter>
 );
 
 // If you want to start measuring performance in your app, pass a function

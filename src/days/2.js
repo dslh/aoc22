@@ -1,15 +1,21 @@
+import Stack from 'react-bootstrap/Stack';
+
 import SourceLoader from 'components/source-loader';
-import Memoizer from 'components/memoizer';
 
 import input from '../input/2.txt';
 import sample from '../input/2.sample.txt';
 
 import parser from './2/parser';
-import partOne from './2/part-one';
+
+import ViewOne from './2/view-one';
+import ViewTwo from './2/view-two';
 
 const Two = () => (
   <SourceLoader {...{input, sample, parser}}>{(data) => (
-    <Memoizer title="Part one" data={data} func={partOne} />
+    <Stack gap={3} direction="horizontal">
+      <ViewOne data={data} />
+      <ViewTwo data={data} />
+    </Stack>
   )}</SourceLoader>
 );
 
