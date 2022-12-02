@@ -10,6 +10,7 @@ import reportWebVitals from './reportWebVitals';
 import Days from './days';
 import Zero from './days/0';
 import One from './days/1';
+import Two from './days/2';
 
 import {
   Chart as ChartJS,
@@ -40,6 +41,7 @@ root.render(
           <Route path="days" element={<Days />} >
             <Route path="0" element={<Zero />} />
             <Route path="1" element={<One />} />
+            <Route path="2" element={<Two />} />
           </Route>
         </Route>
       </Routes>

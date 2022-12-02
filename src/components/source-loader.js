@@ -23,7 +23,12 @@ const SourceLoader = ({ input, sample, parser, children }) => {
     <Container>
       <Row>
         <Col md="9">
-          {data && children(data)}
+          {data &&
+            <Stack gap={3}>
+              <pre>{JSON.stringify(data)}</pre>
+              {children(data)}
+            </Stack>
+          }
         </Col>
         <Col md="3">
           <InputDisplay {...request} />

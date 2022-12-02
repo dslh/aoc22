@@ -30,6 +30,7 @@ const App = () => (
             </LinkContainer>
             <NavDropdown title="Days" id="basic-navbar-dropdown">
               <Day day={1} />
+              <Day day={2} />
             </NavDropdown>
           </Nav>
         </Navbar.Collapse>
