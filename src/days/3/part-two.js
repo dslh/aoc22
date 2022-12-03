@@ -1,7 +1,7 @@
-import { valueOf, commonChar } from './part-one';
+import { valueOf, commonItem } from './part-one';
 
 const partTwo = (data) => (
-  data.eachSlice(3, commonChar)
+  data.eachSlice(3, commonItem)
       .map(valueOf)
       .reduce((sum, value) => sum + value)
 );
