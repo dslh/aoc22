@@ -7,10 +7,13 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 
+import 'lib/utils';
+
 import Days from './days';
 import Zero from './days/0';
 import One from './days/1';
 import Two from './days/2';
+import Three from './days/3';
 
 import {
   Chart as ChartJS,
@@ -41,6 +44,7 @@ root.render(
           <Route path="0" element={<Zero />} />
           <Route path="1" element={<One />} />
           <Route path="2" element={<Two />} />
+          <Route path="3" element={<Three />} />
         </Route>
       </Route>
     </Routes>
