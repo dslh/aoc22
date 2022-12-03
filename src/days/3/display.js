@@ -11,12 +11,11 @@ const PART_TWO_CLASS = 'danger';
 const BOTH_CLASS = 'success';
 const NEITHER_CLASS = 'dark';
 
-const Spacer = ({ width, half }) => {
-  console.log(width, half.length, half);
-  return [...Array(width - half.length)].map((_, i) =>
+const Spacer = ({ width, half }) => (
+  [...Array(width - half.length)].map((_, i) =>
     <Badge key={i} pill bg={NEITHER_CLASS}>&nbsp;</Badge>
   )
-};
+);
 
 const className = (item, partOneItem, partTwoItem) => (
   item === partOneItem ?
