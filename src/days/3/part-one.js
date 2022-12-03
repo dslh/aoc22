@@ -9,16 +9,20 @@ export const valueOf = (letter) => (
   )
 );
 
+export const commonChar = (parts) => {
+  const lists = parts.map(part => part.split(''));
+  const sets = lists.slice(1).map(list => new Set(list));
+
+  return lists[0].find(item => sets.every(set => set.has(item)));
+};
+
 const partOne = (data) => (
   data.map(rucksack => {
             const limit = rucksack.length / 2;
-            return [rucksack.slice(0, limit), rucksack.slice(limit)].map(pocket => pocket.split(''));
+            return [rucksack.slice(0, limit), rucksack.slice(limit)];
           })
-      .map(([a, b]) => {
-            const set = new Set(b);
-            return a.find(item => set.has(item));
-          })
-      .map(common => valueOf(common))
+      .map(commonChar)
+      .map(valueOf)
       .reduce((sum, value) => sum + value)
 );
 
