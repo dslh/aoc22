@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 
-const useAcceleratedCounter = (limit, interval, ratio) => {
+const useAcceleratedCounter = (limit, interval, ratio, min = 0) => {
   const [value, setValue] = useState(0);
 
   useEffect(() => {
@@ -11,7 +11,10 @@ const useAcceleratedCounter = (limit, interval, ratio) => {
     const timeout = () => {
       setValue(v => {
         if (v + 2 < limit) {
-          nextInterval *= ratio;
+          if (nextInterval > min)
+            nextInterval *= ratio;
+          else
+            nextInterval = min;
           id = setTimeout(timeout, Math.round(nextInterval));
         }
 
