@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.css": "/aoc22/static/css/main.c318f87a.css",
-    "main.js": "/aoc22/static/js/main.85485bf0.js",
+    "main.css": "/aoc22/static/css/main.23ea4c6c.css",
+    "main.js": "/aoc22/static/js/main.af26b0c3.js",
     "static/js/787.34bc9d01.chunk.js": "/aoc22/static/js/787.34bc9d01.chunk.js",
     "static/media/4.txt": "/aoc22/static/media/4.613dd2e65a1a7f62f9d7.txt",
     "static/media/1.txt": "/aoc22/static/media/1.ad2cbc484fdea6804239.txt",
@@ -16,12 +16,12 @@
     "static/media/4.sample.txt": "/aoc22/static/media/4.sample.f399e0f46e22578309e5.txt",
     "static/media/0.sample.txt": "/aoc22/static/media/0.sample.c822023e7e47e3a87987.txt",
     "static/media/2.sample.txt": "/aoc22/static/media/2.sample.07a9f11378b56310a82d.txt",
-    "main.c318f87a.css.map": "/aoc22/static/css/main.c318f87a.css.map",
-    "main.85485bf0.js.map": "/aoc22/static/js/main.85485bf0.js.map",
+    "main.23ea4c6c.css.map": "/aoc22/static/css/main.23ea4c6c.css.map",
+    "main.af26b0c3.js.map": "/aoc22/static/js/main.af26b0c3.js.map",
     "787.34bc9d01.chunk.js.map": "/aoc22/static/js/787.34bc9d01.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.c318f87a.css",
-    "static/js/main.85485bf0.js"
+    "static/css/main.23ea4c6c.css",
+    "static/js/main.af26b0c3.js"
   ]
 }
