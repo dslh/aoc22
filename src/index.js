@@ -15,6 +15,7 @@ import One from './days/1';
 import Two from './days/2';
 import Three from './days/3';
 import Four from './days/4';
+import Five from './days/5';
 
 import {
   Chart as ChartJS,
@@ -47,6 +48,7 @@ root.render(
           <Route path="2" element={<Two />} />
           <Route path="3" element={<Three />} />
           <Route path="4" element={<Four />} />
+          <Route path="5" element={<Five />} />
         </Route>
       </Route>
     </Routes>
