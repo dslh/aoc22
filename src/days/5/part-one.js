@@ -15,4 +15,8 @@ const partOne = ({ stacks, moves }) => {
   return message(clone);
 }
 
+export const asPartTwoMoves = (moves) => (
+  moves.map(({ count, from, to }) => [...Array(count)].map(() => ({ count: 1, from, to }))).flat()
+);
+
 export default partOne;

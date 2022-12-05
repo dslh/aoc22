@@ -1,0 +1,17 @@
+.dayFive i {
+  font-style: normal;
+  font-weight: bold;
+  color: #bde;
+  top: 0;
+  left: 0;
+  text-shadow: 0 0 2px black;
+  transition: margin 500ms ease-in-out;
+}
+.dayFive i::before {
+  position: absolute;
+  margin-top: 1px;
+  margin-left: -4px;
+  z-index: -1;
+  content: '📦';
+  text-shadow: none;
+}

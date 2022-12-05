@@ -1,6 +1,6 @@
 import { message } from './part-one';
 
-const applyMove = (stacks, { from, to, count }) => {
+export const applyMove = (stacks, { from, to, count }) => {
   const source = stacks[from];
   const cutoff = source.length - count;
   const chunk = source.slice(cutoff);
