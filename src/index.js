@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom/client';
 import { HashRouter, Routes, Route } from 'react-router-dom';
 
 import 'bootstrap/dist/css/bootstrap.min.css';
+import './fonts/fsex300-webfont.ttf';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
@@ -16,6 +17,7 @@ import Two from './days/2';
 import Three from './days/3';
 import Four from './days/4';
 import Five from './days/5';
+import Six from './days/6';
 
 import {
   Chart as ChartJS,
@@ -49,6 +51,7 @@ root.render(
           <Route path="3" element={<Three />} />
           <Route path="4" element={<Four />} />
           <Route path="5" element={<Five />} />
+          <Route path="6" element={<Six />} />
         </Route>
       </Route>
     </Routes>

@@ -1,0 +1,48 @@
+.daySix .scannerContainer { position: relative; }
+
+.daySix .scanner {
+  font-family: 'fixedsys';
+  white-space: nowrap;
+  overflow-x: hidden;
+  height: 24px;
+  padding: 2px;
+  transform: translateZ(0);
+  z-index: 0;
+}
+.daySix .scanner .deadspace {
+  display: inline-block;
+  width: 2000px
+}
+.daySix .window {
+  box-shadow: inset 2px 2px 4px #BBB;
+  position: absolute;
+  z-index: 1;
+  top: 4px;
+  left: 12px;
+  height: 22px;
+  border: 2px groove blue;
+  border-radius: 4px;
+}
+
+.daySix .scanner span {
+  padding: 0 4px;
+  transition: text-shadow 500ms linear, color 500ms linear;
+}
+.daySix .scanner span.good {
+  color: #99C24D;
+  text-shadow: #99C24D 0 0 5px;
+  transition: text-shadow 1s linear, color 1s linear;
+}
+.daySix .scanner span.bad {
+  color: #96031A;
+  text-shadow: #96031A 0 0 5px;
+  transition: text-shadow 50ms linear, color 50ms linear;
+}
+
+.daySix .counter {
+  position: relative;
+  left: 3px;
+  text-align: right;
+  font-family: 'fixedsys';
+  letter-spacing: 8px;
+}

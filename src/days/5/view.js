@@ -28,7 +28,7 @@ const View = ({ data, speed }) => {
       seq.push(applyMove(prev, move));
       return seq;
     }, [keyed]);
-  }, [data]);
+  }, [stacks, moves]);
 
   const maxHeight = useMemo(() => (
     Math.max(...sequence.map(state => Math.max(...state.map(stack => stack.length))))

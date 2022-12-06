@@ -16,3 +16,8 @@ pre.input {
   max-height: 300px;
   overflow: auto;
 }
+
+@font-face {
+  font-family: 'fixedsys';
+  src: local('fixedsys'), url('./fonts/fsex300-webfont.ttf') format('truetype');
+}
