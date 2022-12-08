@@ -1,6 +1,7 @@
 .daySeven .terminal {
   font-family: 'fixedsys';
   background: black;
+  border-radius: 5px;
   color: green;
   text-shadow: #0A0 0 0 5px;
   height: 480px;
@@ -20,15 +21,54 @@
 .daySeven .writer .char {
   animation: flash-in 300ms linear;
 }
+.daySeven .terminal .history {
+  animation: flash-in 300ms linear;
+}
 
 .daySeven .browser {
+  font-family: monospace;
   width: 400px;
   height: 480px;
   overflow: auto;
 }
-.daySeven .dir::before {
-  content: '📁'
+.daySeven .dirName {
+  font-weight: bold;
+}
+.daySeven .selected > .dirName {
+  border: #C8DAE8 dashed 1px;
+  background: #D8E1E8;
+  border-radius: 5px;
+  margin-left: -10px;
+}
+.daySeven .dirName::before {
+  content: '📁';
+  padding-right: 5px;
+}
+.daySeven .selected > .dirName::before {
+  content: '-📂';
+  color: gray;
+  font-weight: lighter;
+}
+.daySeven .file {
+  margin-left: 10px;
 }
 .daySeven .file::before {
-  content: '📄'
+  content: '📄';
+}
+.daySeven .dir span {
+  float: right;
+  font-size: 12px;
+  margin-top: 2px;
+}
+.daySeven .dir span::after {
+  content: ' bytes';
+}
+
+.daySeven .dir {
+  margin-left: 10px;
+}
+.daySeven .dirContents {
+  margin-left: 10px;
+  margin-bottom: 4px;
+  border-left: dashed grey 1px;
 }

@@ -14,14 +14,16 @@ const Terminal = ({ input, height = 20, callback }) => {
   };
 
   const done = position === commands.length;
-  const history = (length) => commands.slice(Math.max(0, position - length), position);
+  const historyStart = Math.max(0, position - (done ? height : height - 1));
 
   const current = commands[position];
   const isPrompt = current && current.startsWith('$');
   const onWrite = isPrompt ? () => setTimeout(onCommand, 500) : onCommand;
 
   return <div className="terminal">
-    {history(done ? height : height - 1).map((line, i) => <div key={i}>{line}</div>)}
+    {commands.slice(historyStart, position).map((line, i) =>
+      <div key={historyStart + i} className="history">{line}</div>
+    )}
     {current && <Writer className="writer"
                         key={position}
                         line={current}
