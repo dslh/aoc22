@@ -1,7 +1,7 @@
 import useIncrement from 'lib/use-increment';
 
 const useRedraw = () => {
-  const [_, redraw] = useIncrement();
+  const [, redraw] = useIncrement();
   return redraw;
 }
 

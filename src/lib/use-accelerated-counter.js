@@ -24,7 +24,7 @@ const useAcceleratedCounter = (limit, interval, ratio, min = 0) => {
     id = setTimeout(timeout, interval);
 
     return () => clearTimeout(id);
-  }, [interval, ratio, limit]);
+  }, [interval, ratio, limit, min]);
 
   return value;
 };

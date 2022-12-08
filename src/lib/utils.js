@@ -1,3 +1,4 @@
+// eslint-disable-next-line no-extend-native
 Array.prototype.eachSlice = function (size, fn) {
   const out = new Array(Math.trunc(this.length / size));
 

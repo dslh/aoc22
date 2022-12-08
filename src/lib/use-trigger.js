@@ -9,7 +9,7 @@ const useTrigger = (after, callback) => {
       if (callback) callback();
     }, after);
     return () => clearTimeout(timeout);
-  }, [after]);
+  }, [after, callback]);
 
   return flag;
 };

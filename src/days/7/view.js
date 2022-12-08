@@ -27,7 +27,10 @@ const addFileSize = (cwd, command) => {
 }
 
 const View = ({ commands }) => {
+  // ensure a new root directory is used any time the command set changes
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   const root = useMemo(() => newdir('/'), [commands]);
+
   const [cwd, setCwd] = useState(null);
   useEffect(() => { setCwd(root) }, [root]);
 
