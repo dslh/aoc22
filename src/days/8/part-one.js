@@ -3,7 +3,6 @@ const partOne = (grid) => {
   const width = grid[0].length;
 
   const visible = [...Array(height)].map(() => new Array(width).fill(false));
-  console.log(visible);
 
   for (let row = 0; row < height; ++row) {
     let max = -1;

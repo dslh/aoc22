@@ -1,0 +1,41 @@
+.dayEight .forest {
+  font-family: monospace;
+  font-size: 14px;
+  color: #CCC;
+  text-shadow: 0 0 2px gray;
+  letter-spacing: 12px;
+  padding: 10px;
+}
+.dayEight .forest div {
+  white-space: nowrap;
+  margin-bottom: 2px;
+}
+
+.dayEight .forest span {
+  position: relative;
+}
+.dayEight .forest span::before {
+  position: absolute;
+  font-size: 20px;
+  z-index: -1;
+  content: '🎄';
+  margin-top: -4px;
+  margin-left: -6px;
+  filter: saturate(0);
+}
+
+.dayEight .forest span.focus {
+  color: #999;
+  text-shadow: none;
+}
+.dayEight .forest span.focus::before {
+  filter: saturate(10);
+  text-shadow: 0 0 4px red;
+}
+
+.dayEight .forest span.visible {
+  color: #FFF5B2;
+}
+.dayEight .forest span.visible::before {
+  filter: saturate(1);
+}

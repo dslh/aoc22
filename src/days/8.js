@@ -9,15 +9,22 @@ import sample from 'input/8.sample.txt';
 import partOne from './8/part-one';
 import partTwo from './8/part-two';
 
+import './8/style.css';
+
+import ViewOne from './8/view-one';
+
 const parser = (data) => (
   data.split('\n').map(line => line.split('').map(tree => Number.parseInt(tree)))
 );
 
 const Eight = () => (
   <SourceLoader {...{input, sample, parser}}>{(data) =>
-    <Stack gap={3} direction="horizontal" className="mx-auto">
-      <Memoizer title="Part one" data={data} func={partOne} />
-      <Memoizer title="Part two" data={data} func={partTwo} />
+    <Stack className="dayEight">
+      <Stack gap={3} direction="horizontal" className="mx-auto">
+        <Memoizer title="Part one" data={data} func={partOne} />
+        <Memoizer title="Part two" data={data} func={partTwo} />
+      </Stack>
+      <ViewOne data={data} />
     </Stack>
   }</SourceLoader>
 );
