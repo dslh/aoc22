@@ -18,7 +18,7 @@ function* illuminate(grid) {
       }
 
       yield { visible, focus: { row, col } };
-      if (max == 9) break;
+      if (max === 9) break;
     }
 
     max = -1;
@@ -30,7 +30,7 @@ function* illuminate(grid) {
       }
 
       yield { visible, focus: { row, col } };
-      if (max == 9) break;
+      if (max === 9) break;
     }
   }
 
@@ -44,7 +44,7 @@ function* illuminate(grid) {
       }
 
       yield { visible, focus: { row, col } };
-      if (max == 9) break;
+      if (max === 9) break;
     }
 
     max = -1;
@@ -56,7 +56,7 @@ function* illuminate(grid) {
       }
 
       yield { visible, focus: { row, col } };
-      if (max == 9) break;
+      if (max === 9) break;
     }
   }
 

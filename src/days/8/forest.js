@@ -1,6 +1,6 @@
 const Forest = ({ data, visible, focus }) => {
   const treeClass = (row, col) => {
-    if (focus && row == focus.row && col == focus.col)
+    if (focus && row === focus.row && col === focus.col)
       return 'focus';
 
     if (visible && visible[row] && visible[row][col])
