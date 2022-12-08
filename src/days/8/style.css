@@ -2,7 +2,6 @@
   font-family: monospace;
   font-size: 14px;
   color: #CCC;
-  text-shadow: 0 0 2px gray;
   letter-spacing: 12px;
   padding: 10px;
 }
@@ -26,11 +25,9 @@
 
 .dayEight .forest span.focus {
   color: #999;
-  text-shadow: none;
 }
 .dayEight .forest span.focus::before {
-  filter: saturate(10);
-  text-shadow: 0 0 4px red;
+  filter: saturate(5) hue-rotate(240deg);
 }
 
 .dayEight .forest span.visible {
