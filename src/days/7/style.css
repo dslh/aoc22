@@ -1,0 +1,34 @@
+.daySeven .terminal {
+  font-family: 'fixedsys';
+  background: black;
+  color: green;
+  text-shadow: #0A0 0 0 5px;
+  height: 480px;
+  width: 200px;
+}
+
+@keyFrames flash-in {
+  from {
+    color: #AFA;
+  }
+
+  to {
+    color: green;
+  }
+}
+
+.daySeven .writer .char {
+  animation: flash-in 300ms linear;
+}
+
+.daySeven .browser {
+  width: 400px;
+  height: 480px;
+  overflow: auto;
+}
+.daySeven .dir::before {
+  content: '📁'
+}
+.daySeven .file::before {
+  content: '📄'
+}

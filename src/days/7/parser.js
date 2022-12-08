@@ -1,7 +1,7 @@
 // This is the data structure we use to build a directory tree.
 // dirs is a map containing more of the same data structure.
 // files is a map of files and their sizes.
-const newdir = (name) => ({ name, dirs: {}, files: {} });
+export const newdir = (name) => ({ name, dirs: {}, files: {} });
 
 // "Current working directory"
 // The parser works with a path structure that is a list of directories.
@@ -34,7 +34,7 @@ const COMMANDS = [
 ];
 
 // Execute a single command from the input.
-const exec = (cmd, path) => {
+export const exec = (cmd, path) => {
   let match;
   const { func } = COMMANDS.find(({ pattern }) => match = cmd.match(pattern));
   // Any named groups in the matched pattern get passed to the command as parameters.

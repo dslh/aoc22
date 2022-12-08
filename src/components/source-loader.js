@@ -26,7 +26,7 @@ const SourceLoader = ({ input, sample, parser, children }) => {
           {data &&
             <Stack gap={3}>
               <pre>{JSON.stringify(data)}</pre>
-              {children(data)}
+              {children(data, request.data)}
             </Stack>
           }
         </Col>
