@@ -9,7 +9,7 @@ import Col from 'react-bootstrap/Col';
 import InputDisplay from 'components/input-display';
 import InputSelector from 'components/input-selector';
 
-const SourceLoader = ({ input, sample, parser, children }) => {
+const SourceLoader = ({ input, sample, parser, children, showParsed }) => {
   const [source, setSource] = useState(sample);
   const request = useFetch(source, [source]);
 
@@ -21,6 +21,13 @@ const SourceLoader = ({ input, sample, parser, children }) => {
       <InputSelector value={input} {...{source, setSource}}>Use challenge</InputSelector>
     </Stack>
     <Container>
+      {data && showParsed &&
+        <Row>
+          <Col>
+            <pre>{JSON.stringify(data)}</pre>
+          </Col>
+        </Row>
+      }
       <Row>
         <Col md="9">
           {data && children(data, request.data)}
