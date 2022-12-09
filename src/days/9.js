@@ -9,6 +9,8 @@ import sample from 'input/9.sample.txt';
 import partOne from './9/part-one';
 import partTwo from './9/part-two';
 
+import View from './9/view';
+
 const parser = (data) => (
   data.split('\n').map(instruction => {
     const [dir, count] = instruction.split(' ');
@@ -18,9 +20,12 @@ const parser = (data) => (
 
 const Nine = () => (
   <SourceLoader showParsed {...{input, sample, parser}}>{(data) =>
-    <Stack gap={3} direction="horizontal" className="mx-auto">
-      <Memoizer title="Part one" data={data} func={partOne} />
-      <Memoizer title="Part two" data={data} func={partTwo} />
+    <Stack className="justify-content-md-center">
+      <Stack gap={3} direction="horizontal" className="mx-auto">
+        <Memoizer title="Part one" data={data} func={partOne} />
+        <Memoizer title="Part two" data={data} func={partTwo} />
+      </Stack>
+      <View data={data} />
     </Stack>
   }</SourceLoader>
 );

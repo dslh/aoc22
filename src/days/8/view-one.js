@@ -1,4 +1,4 @@
-import { useMemo, useEffect, useState } from 'react';
+import useTimedGenerator from 'lib/use-timed-generator';
 
 import Forest from './forest';
 
@@ -64,22 +64,7 @@ function* illuminate(grid) {
 }
 
 const ViewOne = ({ data }) => {
-  const iterator = useMemo(() => illuminate(data), [data]);
-  const [{ visible, focus }, setState] = useState({});
-
-  useEffect(() => {
-    let timeoutId;
-    const timeout = () => {
-      const { value, done } = iterator.next();
-      if (done) return;
-
-      setState(value);
-      timeoutId = setTimeout(timeout, 80);
-    };
-    timeoutId = setTimeout(timeout);
-
-    return () => clearTimeout(timeoutId);
-  }, [iterator]);
+  const { visible, focus } = useTimedGenerator(illuminate, [data], {}, 80);
 
   return <Forest data={data} visible={visible} focus={focus} />;
 };

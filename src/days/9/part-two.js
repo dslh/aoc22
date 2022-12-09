@@ -1,5 +1,5 @@
-import { run, mapSize } from './part-one';
+import { tailVisitation, mapSize } from './part-one';
 
-const partTwo = (instructions) => mapSize(run(instructions, 9).visited);
+const partTwo = (instructions) => mapSize(tailVisitation(instructions, 9));
 
 export default partTwo;
