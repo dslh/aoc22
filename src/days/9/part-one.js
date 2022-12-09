@@ -28,26 +28,25 @@ const visit = (visited, { x, y }) => {
   visited[x][y] = true;
 }
 
-const run = (instructions) => (
+export const run = (instructions, tailLength = 1) => (
   instructions.reduce((state, { dir, count }) => {
-    console.log(state);
-    const { head, tail, visited } = state;
+    const { rope, visited } = state;
 
     for (let i = 0; i < count; i++) {
-      moveHead(head, dir);
-      moveTail(head, tail);
-      visit(visited, tail);
+      moveHead(rope[0], dir);
+      for (let j = 1; j < rope.length; j++)
+        moveTail(rope[j - 1], rope[j]);
+      visit(visited, rope[tailLength]);
     }
 
     return state;
   }, {
-    head: { x: 0, y: 0 },
-    tail: { x: 0, y: 0 },
+    rope: [...Array(tailLength + 1)].map(() => ({ x: 0, y: 0 })),
     visited: { 0: { 0: true } }
   })
 );
 
-const mapSize = (visited) => (
+export const mapSize = (visited) => (
   Object.values(visited).reduce((sum, col) => sum + Object.keys(col).length, 0)
 );
 
