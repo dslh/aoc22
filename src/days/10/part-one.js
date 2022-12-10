@@ -1,29 +1,34 @@
 const KEY_CYCLES = [20, 60, 100, 140, 180, 220];
 
-function *run(instructions) {
+export function *runProgram(instructions) {
   let cycle = 0;
   let x = 1;
 
   for (const instruction of instructions) {
-    cycle++;
-    yield { cycle, x };
-
-    if (instruction.startsWith('addx')) {
+    if (instruction === 'noop') {
+      cycle++;
+      yield { cycle, x, instruction };
+    } else if (instruction.startsWith('addx')) {
       cycle++;
       yield { cycle, x };
+
+      cycle++;
+      yield { cycle, x, instruction };
       x += Number.parseInt(instruction.split(' ')[1]);
     }
   }
+
+  cycle++;
+  yield { cycle, x };
 }
+
+export const keyCycle = (cycle) => ((cycle + 20) % 40) === 0;
 
 const partOne = (data) => {
   let signal = 0;
-  for (const { cycle, x } of run(data)) {
-    if (((cycle + 20) % 40) === 0) {
-      console.log(cycle, x, cycle * x);
-
+  for (const { cycle, x } of runProgram(data)) {
+    if (keyCycle(cycle))
       signal += cycle * x;
-    }
   }
 
   return signal;

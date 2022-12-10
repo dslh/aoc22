@@ -1,0 +1,49 @@
+.dayTen {
+  background-color: black;
+  border-radius: 5px;
+  font-family: 'fixedsys';
+  color: green;
+  min-height: 360px;
+  text-shadow: #0A0 0 0 5px;
+  font-size: 24px;
+}
+
+@keyFrames flash-in {
+  from {
+    color: #AFA;
+  }
+
+  to {
+    color: green;
+  }
+}
+
+@keyFrames loud-flash-in {
+  from {
+    color: white;
+  }
+
+  to {
+    color: #AFA;
+  }
+}
+
+.dayTen span {
+  animation: flash-in 300ms linear;
+}
+.dayTen span.signal {
+  animation: loud-flash-in 3s linear;
+  color: #AFA;
+}
+.dayTen .signals span {
+  animation: flash-in 3s linear;
+}
+
+.dayTen .display > div {
+  width: 480px;
+  margin: 0 auto;
+}
+
+.dayTen .signals {
+  text-align: right;
+}
