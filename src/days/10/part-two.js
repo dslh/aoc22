@@ -25,7 +25,7 @@ const PartTwo = ({ instructions }) => {
     display.length = 0;
     signals.length = 0;
     history.length = 0;
-  }, [instructions]);
+  }, [instructions, display, signals, history]);
 
   const { cycle, x, instruction } = useTimedGenerator(runProgram, [instructions], {}, 100);
 
@@ -35,7 +35,7 @@ const PartTwo = ({ instructions }) => {
     if (keyCycle(cycle))
       signals.push(cycle * x);
 
-    if (cycle % 40 === 1)
+    if (cycle % WIDTH === 1)
       display.push([]);
 
     const row = display[display.length - 1];
@@ -46,7 +46,7 @@ const PartTwo = ({ instructions }) => {
       if (history.length > 10)
         history.shift();
     }
-  }, [cycle, x, instruction]);
+  }, [cycle, x, instruction, display, signals, history]);
 
   return <Container className="dayTen">
     <Row>

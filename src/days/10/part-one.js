@@ -1,5 +1,3 @@
-const KEY_CYCLES = [20, 60, 100, 140, 180, 220];
-
 export function *runProgram(instructions) {
   let cycle = 0;
   let x = 1;
