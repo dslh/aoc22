@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.css": "/aoc22/static/css/main.45f9a01d.css",
-    "main.js": "/aoc22/static/js/main.318d9a81.js",
+    "main.css": "/aoc22/static/css/main.c2634d33.css",
+    "main.js": "/aoc22/static/js/main.ac2693eb.js",
     "static/js/787.34bc9d01.chunk.js": "/aoc22/static/js/787.34bc9d01.chunk.js",
     "static/media/fsex300-webfont.ttf": "/aoc22/static/media/fsex300-webfont.5db29ddcc2412514042b.ttf",
     "static/media/4.txt": "/aoc22/static/media/4.613dd2e65a1a7f62f9d7.txt",
@@ -29,12 +29,12 @@
     "static/media/6.sample.txt": "/aoc22/static/media/6.sample.aa5ff43259e5328d3db1.txt",
     "static/media/8.sample.txt": "/aoc22/static/media/8.sample.c8512d09cf8ac0874925.txt",
     "static/media/2.sample.txt": "/aoc22/static/media/2.sample.07a9f11378b56310a82d.txt",
-    "main.45f9a01d.css.map": "/aoc22/static/css/main.45f9a01d.css.map",
-    "main.318d9a81.js.map": "/aoc22/static/js/main.318d9a81.js.map",
+    "main.c2634d33.css.map": "/aoc22/static/css/main.c2634d33.css.map",
+    "main.ac2693eb.js.map": "/aoc22/static/js/main.ac2693eb.js.map",
     "787.34bc9d01.chunk.js.map": "/aoc22/static/js/787.34bc9d01.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.45f9a01d.css",
-    "static/js/main.318d9a81.js"
+    "static/css/main.c2634d33.css",
+    "static/js/main.ac2693eb.js"
   ]
 }
