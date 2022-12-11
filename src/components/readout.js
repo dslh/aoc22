@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 
 const RATIO = 0.6;
 
-const Readout = ({ value }) => {
+const Readout = ({ value, ...props }) => {
   const [display, setDisplay] = useState(0);
   useEffect(() => {
     if (display !== value) {
@@ -14,7 +14,7 @@ const Readout = ({ value }) => {
     }
   }, [display, value]);
 
-  return <span>{display}</span>;
+  return <span {...props}>{display}</span>;
 };
 
 export default Readout;

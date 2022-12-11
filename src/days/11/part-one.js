@@ -1,19 +1,18 @@
 export const itemSlinger = (worryManager) => (monkeys, monkey) => {
   let item = monkey.items.shift();
-  item = monkey.operation(item, monkey.operand(item));
-  item = worryManager(item);
+  item.level = monkey.operation(item.level, monkey.operand(item.level));
+  item.level = worryManager(item.level);
 
-  const receiver = item % monkey.test === 0 ? monkey.true : monkey.false;
+  const receiver = item.level % monkey.test === 0 ? monkey.true : monkey.false;
   monkeys[receiver].items.push(item);
 
   monkey.slung++;
 }
 
-const cloneMonkey = (monkey) => ({ ...monkey, items: [...monkey.items] });
+export const cloneMonkey = (monkey) => ({ ...monkey, items: monkey.items.map(item => ({ ...item })) });
 
 export const monkeyBusiness = (monkeys, rounds, slingItem) => {
   monkeys = monkeys.map(cloneMonkey);
-  monkeys.forEach(monkey => monkey.slung = 0);
 
   for (let i = 0; i < rounds; ++i)
     monkeys.forEach(monkey => {

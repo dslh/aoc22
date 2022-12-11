@@ -11,11 +11,16 @@ import parser from './11/parser';
 import partOne from './11/part-one';
 import partTwo from './11/part-two';
 
+import View from './11/view';
+
 const Eleven = () => (
-  <SourceLoader showParsed {...{input, sample, parser}}>{(data) =>
-    <Stack>
-      <Memoizer title="Part one" data={data} func={partOne} />
-      <Memoizer title="Part two" data={data} func={partTwo} />
+  <SourceLoader {...{input, sample, parser}}>{(data) =>
+    <Stack className="justify-content-md-center">
+      <Stack gap={3} direction="horizontal" className="mx-auto">
+        <Memoizer title="Part one" data={data} func={partOne} />
+        <Memoizer title="Part two" data={data} func={partTwo} />
+      </Stack>
+      <View data={data} />
     </Stack>
   }</SourceLoader>
 );

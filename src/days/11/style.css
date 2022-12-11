@@ -1,0 +1,40 @@
+.dayEleven {
+  margin: 0 auto;
+  position: relative;
+  width: 600px;
+  height: 600px;
+}
+.dayEleven .monkey {
+  position: absolute;
+}
+.dayEleven .monkey span {
+  position: absolute;
+  top: 24px;
+  right: 4px;
+  font-size: 8px;
+  background-color: #D4FCC3;
+  color: #362C28;
+  padding: 0 2px;
+  border: 1px solid #362C28;
+  border-radius: 5px;
+  transition: background-color 1s linear;
+}
+.dayEleven .monkey.current {
+  text-shadow: 0 0 5px #D4FCC3;
+}
+.dayEleven .monkey span.most {
+  background-color: #F3C969;
+}
+.dayEleven .item {
+  position: absolute;
+  margin-left: 24px;
+  font-size: 8px;
+  background-color: #FFF5B2;
+  color: #362C28;
+  padding: 0 2px;
+  border: 1px solid #362C28;
+  border-radius: 5px;
+
+  transition: left 100ms ease-in-out,
+              top 100ms ease-in-out;
+}

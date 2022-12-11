@@ -1,9 +1,10 @@
 const MONKEY_RE = /Monkey \d+:/
-const addMonkey = ({ monkeys }) => monkeys.push({});
+const addMonkey = ({ monkeys }) => monkeys.push({ slung: 0 });
 
 const ITEMS_RE = /Starting items: (?<items>\d+(, \d+)*)/
+let itemKey = 0;
 const setItems = ({ monkey, items }) => (
-  monkey.items = items.split(', ').map(item => Number.parseInt(item))
+  monkey.items = items.split(', ').map(item => ({ level: Number.parseInt(item), key: itemKey++ }))
 );
 
 const OPERATION_RE = /Operation: new = old (?<op>[*+]) (?<operand>old|\d+)/
