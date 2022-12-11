@@ -2,7 +2,7 @@
   margin: 0 auto;
   position: relative;
   width: 600px;
-  height: 600px;
+  height: 750px;
 }
 .dayEleven .monkey {
   position: absolute;
@@ -20,7 +20,7 @@
   transition: background-color 1s linear;
 }
 .dayEleven .monkey.current {
-  text-shadow: 0 0 5px #D4FCC3;
+  text-shadow: 0 0 10px #D4FCC3;
 }
 .dayEleven .monkey span.most {
   background-color: #F3C969;

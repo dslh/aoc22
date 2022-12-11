@@ -2,14 +2,14 @@ import { useMemo } from 'react';
 
 import Readout from 'components/readout';
 
-import { itemSlinger, cloneMonkey } from './part-one';
+import { cloneMonkey } from './part-one';
 
 import useTimedGenerator from 'lib/use-timed-generator';
 
 import './style.css';
 
 function *monkeyBusiness(monkeys, rounds, slingItem) {
-  for (let i = 0; i < rounds; ++i) {
+  for (let i = 1; i <= rounds; ++i) {
     for (let j = 0; j < monkeys.length; ++j) {
       const monkey = monkeys[j];
       while (monkey.items.length) {
@@ -51,9 +51,8 @@ const maxSlingers = (monkeys) => {
   };
 };
 
-const View = ({ data }) => {
+const View = ({ data, rounds, slingItem }) => {
   const monkeys = useMemo(() => data.map(cloneMonkey), [data]);
-  const slingItem = useMemo(() => itemSlinger((value) => Math.floor(value / 3)), []);
   const items = useMemo(() => monkeys.map(monkey => monkey.items).flat(), [monkeys]);
 
   const itemOwner = (item) => {
@@ -77,7 +76,7 @@ const View = ({ data }) => {
   const mostActive = maxSlingers(monkeys);
 
   return <div className="dayEleven">
-    <div>Round: {round + 1}</div>
+    <div>Round: {round}</div>
     <div>Monkey business: {mostActive.values[0]} * {mostActive.values[1]} = {mostActive.values[0] * mostActive.values[1]}</div>
     {monkeys.map((monkey, i) =>
       <div key={i} className={`monkey ${i === currentMonkey ? 'current': ''}`} style={monkeyStyle(i)}>
