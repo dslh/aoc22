@@ -32,17 +32,21 @@ const pathLength = (pos) => {
   return length;
 };
 
-const partOne = ({ grid, start, end }) => {
+export const search = (grid, start, isEnd) => {
   const toVisit = [start];
   const visited = [...Array(grid.length)].map(() => new Array(grid[0].length).fill(false));
 
   while (toVisit.length) {
     const next = toVisit.shift();
-    if (next.row === end.row && next.col === end.col)
+    if (isEnd(next))
       return pathLength(next);
 
     visit(grid, next, visited, toVisit);
   }
 };
+
+const partOne = ({ grid, start, end }) => (
+  search(grid, start, pos => pos.row === end.row && pos.col === end.col)
+);
 
 export default partOne;
