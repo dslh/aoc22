@@ -14,8 +14,13 @@ function *monkeyBusiness(monkeys, rounds, slingItem) {
       const monkey = monkeys[j];
       while (monkey.items.length) {
         slingItem(monkeys, monkey);
-        yield { round: i, monkey: j };
+        if (rounds < 1000 || i <= 2)
+          yield { round: i, monkey: j };
       }
+      if (rounds >= 1000 && (
+          (i > 2 && i <= 10) ||
+          i % monkeys.length === j))
+        yield { round: i, monkey: j };
     }
   }
 
@@ -71,7 +76,7 @@ const View = ({ data, rounds, slingItem }) => {
     left: monkeyX(monkey) + 'px', top: monkeyY(monkey) + index * 16 + 'px'
   });
 
-  const { round, monkey: currentMonkey } = useTimedGenerator(monkeyBusiness, [monkeys, 20, slingItem], {});
+  const { round, monkey: currentMonkey } = useTimedGenerator(monkeyBusiness, [monkeys, rounds, slingItem], {});
 
   const mostActive = maxSlingers(monkeys);
 
