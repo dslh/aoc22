@@ -9,7 +9,7 @@ const outOfBounds = (grid, { row, col }) => (
   row < 0 || col < 0 || row >= grid.length || col >= grid[row].length
 );
 
-const visit = (grid, pos, touched, toVisit) => {
+export const visit = (grid, pos, touched, toVisit) => {
   touched[pos.row][pos.col] = true;
 
   const height = grid[pos.row][pos.col];

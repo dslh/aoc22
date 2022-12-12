@@ -16,9 +16,11 @@ const useTimedGenerator = (generator, args, initialState = null, interval = 100)
     let timeoutId;
     const timeout = () => {
       const { value, done } = iterator.next();
+
+      if (value !== undefined) setState(value);
+
       if (done) return;
 
-      setState(value);
       timeoutId = setTimeout(timeout, interval);
     };
     timeoutId = setTimeout(timeout, interval);
