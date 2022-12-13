@@ -10,8 +10,6 @@ const outOfBounds = (grid, { row, col }) => (
 );
 
 export const visit = (grid, pos, touched, toVisit) => {
-  touched[pos.row][pos.col] = true;
-
   const height = grid[pos.row][pos.col];
 
   for (const neighbour of adjacency(pos)) {
