@@ -81,7 +81,7 @@ const View = ({ grid, start, end, isEnd }) => {
       circle(ctx, start.row, start.col, 3, null, START);
     if (end)
       circle(ctx, end.row, end.col, 3, START);
-  }, [grid, start, end]);
+  }, [grid, start, end, width, height]);
 
   useGeneratorCallback(search, [grid, start, isEnd], 10, (pos) => {
     const { prev } = pos;

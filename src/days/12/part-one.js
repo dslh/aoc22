@@ -28,7 +28,7 @@ export const visit = (grid, pos, touched, toVisit) => {
 
 const pathLength = (pos) => {
   let length = 0;
-  while (pos = pos.prev) length++;
+  while ((pos = pos.prev) !== undefined) length++;
   return length;
 };
 
