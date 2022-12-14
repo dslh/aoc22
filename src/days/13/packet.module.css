@@ -1,0 +1,66 @@
+.outer {
+  padding-top: 64px;
+  width: fit-content;
+}
+
+.packet {
+  position: relative;
+  top: -8px;
+  display: inline-block;
+  background-color: #F5F9E9;
+  border: 1px solid #C2C1A5;
+  border-radius: 8px;
+  box-shadow: 2px 2px 2px #C2C1A5;
+  height: 16px;
+  padding-left: 4px;
+  padding-right: 36px;
+  margin-right: 8px;
+}
+
+.card {
+  display: inline-block;
+  position: relative;
+  width: 16px;
+  height: 2px;
+}
+.card .inner {
+  position: absolute;
+  left: -8px;
+  bottom: 8px;
+  width: 64px;
+  height: 64px;
+}
+
+.card.v0 .inner {
+  background-image: url(./card_empty.png);
+} 
+.card.v1 .inner {
+  background-image: url(./card_hearts_A.png);
+}
+.card.v2 .inner {
+  background-image: url(./card_hearts_02.png);
+}
+.card.v3 .inner {
+  background-image: url(./card_hearts_03.png);
+}
+.card.v4 .inner {
+  background-image: url(./card_hearts_04.png);
+}
+.card.v5 .inner {
+  background-image: url(./card_hearts_05.png);
+}
+.card.v6 .inner {
+  background-image: url(./card_hearts_06.png);
+}
+.card.v7 .inner {
+  background-image: url(./card_hearts_07.png);
+}
+.card.v8 .inner {
+  background-image: url(./card_hearts_08.png);
+}
+.card.v9 .inner {
+  background-image: url(./card_hearts_09.png);
+}
+.card.v10 .inner {
+  background-image: url(./card_hearts_10.png);
+}
