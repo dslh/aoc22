@@ -7,21 +7,25 @@ function *downwards({ x, y }) {
   yield { x: x + 1, y };
 }
 
-const partOne = (rocks) => {
+export const fillCave = (rocks, loopCondition) => {
   const sand = Grid();
-  const filled = (pos) => rocks.get(pos) || sand.get(pos);
 
   let current = { x: 500, y: 0 };
   const flow = [current];
-  for (; current.y < rocks.max.y; current = flow[flow.length - 1]) {
-    for (const next of downwards(current)) {
-      if (!filled(next)) {
-        flow.push(next);
-        break;
-      }
-    }
 
-    if (current === flow[flow.length - 1]) {
+  const flowDownwards = () => {
+    if (current.y === rocks.max.y + 1) return;
+
+    for (const next of downwards(current))
+      if (!(rocks.get(next) || sand.get(next)))
+        return next;
+  };
+
+  for (; loopCondition(current); current = flow[flow.length - 1]) {
+    const next = flowDownwards();
+    if (next) {
+      flow.push(next);
+    } else {
       sand.set(current);
       flow.pop();
     }
@@ -29,5 +33,7 @@ const partOne = (rocks) => {
 
   return sand.count;
 };
+
+const partOne = (rocks) => fillCave(rocks, pos => pos.y < rocks.max.y);
 
 export default partOne;
