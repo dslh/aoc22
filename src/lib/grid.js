@@ -1,5 +1,5 @@
 const Grid = () => ({
-  grid: {},
+  grid: [],
   min: {},
   max: {},
   count: 0,
@@ -13,12 +13,18 @@ const Grid = () => ({
 
     this.count++;
 
-    grid[x] ||= {};
+    grid[x] ||= [];
     grid[x][y] = value;
   },
 
   get({ x, y }) {
     return this.grid[x] && this.grid[x][y];
+  },
+
+  forEach(callback) {
+    this.grid.forEach((col, x) =>
+      col.forEach((value, y) => callback({ x, y }, value))
+    );
   }
 });
 

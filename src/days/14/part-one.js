@@ -1,6 +1,6 @@
 import Grid from 'lib/grid';
 
-function *downwards({ x, y }) {
+export function *downwards({ x, y }) {
   y += 1;
   yield { x, y };
   yield { x: x - 1, y };
