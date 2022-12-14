@@ -73,7 +73,7 @@ const View = ({ grid, start, end, isEnd }) => {
 
         const x = row * SCALE;
         const y = col * SCALE;
-        ctx.fillRect(x, y, x + SCALE, y + SCALE);
+        ctx.fillRect(x, y, SCALE, SCALE);
       }
     }
 
