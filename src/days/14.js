@@ -8,10 +8,10 @@ import sample from 'input/14.sample.txt';
 
 import parser from './14/parser';
 import partOne from './14/part-one';
-const partTwo = () => '💩';
+import partTwo from './14/part-two';
 
 const Fourteen = () => (
-  <SourceLoader showParsed {...{input, sample, parser}}>{(data) => (
+  <SourceLoader {...{input, sample, parser}}>{(data) => (
     <Stack gap={2}>
       <Stack gap={3} direction="horizontal" className="mx-auto">
         <Memoizer title="Part one" data={data} func={partOne} />
