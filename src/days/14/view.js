@@ -1,4 +1,4 @@
-import { useRef, useEffect, useState } from 'react';
+import { useRef, useEffect } from 'react';
 
 import useGeneratorCallback from 'lib/use-generator-callback';
 import Grid from 'lib/grid';
@@ -53,7 +53,6 @@ const View = ({ rocks }) => {
 
   const canvas = useRef(null);
   const hitBottom = useRef(false);
-  const [interval, setInterval] = useState(1);
 
   useEffect(() => {
     hitBottom.current = false;
@@ -68,7 +67,7 @@ const View = ({ rocks }) => {
     });
 
     ctx.fillRect(0, (height - 1) * SCALE, canvas.current.width, SCALE);
-  }, [rocks]);
+  }, [rocks, height, minX]);
 
   const drawFlow = (flow) => {
     const from = flow[flow.length - 2];
@@ -92,7 +91,7 @@ const View = ({ rocks }) => {
     ctx.fillRect((pos.x - minX) * SCALE, pos.y * SCALE, SCALE, SCALE);
   };
 
-  useGeneratorCallback(fillCave, [rocks], interval, ({ flow, sand, current }) => {
+  useGeneratorCallback(fillCave, [rocks], 1, ({ flow, sand, current }) => {
     if (flow)
       drawFlow(flow);
     else
