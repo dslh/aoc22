@@ -8,7 +8,7 @@ import sample from 'input/15.sample.txt';
 
 import parser from './15/parser';
 import partOne from './15/part-one';
-const partTwo = () => '🙃';
+import partTwo from './15/part-two';
 
 const Fifteen = () => (
   <SourceLoader showParsed {...{input, sample, parser}}>{(data) => (
