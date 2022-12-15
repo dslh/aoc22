@@ -6,6 +6,7 @@ import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 
+import ButtonContainer from 'components/button-container';
 import InputDisplay from 'components/input-display';
 import InputSelector from 'components/input-selector';
 
@@ -16,10 +17,10 @@ const SourceLoader = ({ input, sample, parser, children, showParsed }) => {
   const data = useMemo(() => (request.data && parser(request.data)), [request.data, parser]);
 
   return <Stack gap={3}>
-    <Stack gap={3} direction="horizontal" className="mx-auto">
+    <ButtonContainer>
       <InputSelector value={sample} {...{source, setSource}}>Use sample</InputSelector>
       <InputSelector value={input} {...{source, setSource}}>Use challenge</InputSelector>
-    </Stack>
+    </ButtonContainer>
     <Container>
       {data && showParsed &&
         <Row>
