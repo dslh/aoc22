@@ -21,10 +21,14 @@ const PartTwo = ({ instructions }) => {
   const { current: signals } = useRef([]);
   const { current: history } = useRef([]);
 
+  const cursor = useRef(null);
+
   useLayoutEffect(() => {
     display.length = 0;
     signals.length = 0;
     history.length = 0;
+    cursor.current.style.top = 0;
+    cursor.current.style.left = 0;
   }, [instructions, display, signals, history]);
 
   const { cycle, x, instruction } = useTimedGenerator(runProgram, [instructions], {}, 100);
@@ -35,8 +39,13 @@ const PartTwo = ({ instructions }) => {
     if (keyCycle(cycle))
       signals.push(cycle * x);
 
-    if (cycle % WIDTH === 1)
+    if (cycle % WIDTH === 1) {
       display.push([]);
+      cursor.current.style.top = (display.length - 1) * 36 + 'px';
+    }
+
+    if (x !== undefined)
+      cursor.current.style.left = (x - 1) * 12 + 'px';
 
     const row = display[display.length - 1];
     row.push(Math.abs(row.length  -  x) <= 1);
@@ -59,6 +68,7 @@ const PartTwo = ({ instructions }) => {
       </Col>
       <Col md="8" className="display">
         <Stack>
+          <div className="cursor" ref={cursor} />
           {display.map((row, i) =>
             <div key={i}>
               {row.map((pixel, j) =>

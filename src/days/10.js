@@ -12,7 +12,7 @@ import PartTwo from './10/part-two';
 const parser = (data) => data.split('\n');
 
 const Ten = () => (
-  <SourceLoader showParsed {...{input, sample, parser}}>{(data) =>
+  <SourceLoader {...{input, sample, parser}}>{(data) =>
     <Stack>
       <Memoizer title="Part one" data={data} func={partOne} />
       <PartTwo instructions={data} />

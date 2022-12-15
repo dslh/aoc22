@@ -40,8 +40,22 @@
 }
 
 .dayTen .display > div {
+  position: relative;
   width: 480px;
   margin: 0 auto;
+}
+.dayTen .display .cursor {
+  position: absolute;
+  width: 36px;
+  height: 24px;
+  opacity: 0.5;
+  background-color: green;
+  box-shadow: 0 0 10px 4px #0A0;
+  top: 0;
+  left: 0;
+  margin-top: 6px;
+  transition: left 100ms ease-out,
+              top 100ms ease-out;
 }
 
 .dayTen .signals {
