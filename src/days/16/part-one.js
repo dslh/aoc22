@@ -5,9 +5,10 @@ const visit = (network, node, valves = {}, from = null, depth = 0) => {
   if (depth >= 30) return best;
 
   if (rate && !valves[node]) {
-    valves[node] = true;
     const base = { steps: [node, `+${node}`], rate: rate * (29 - depth) };
+    if (Object.keys(valves).length === network.valveCount) return base;
 
+    valves[node] = true;
     for (const link of links) {
       const linkBest = visit(network, link, valves, node, depth + 2);
       if (linkBest.rate + base.rate > best.rate) {
