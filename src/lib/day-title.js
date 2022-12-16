@@ -13,7 +13,8 @@ const DAY_TITLES = [
   'Hill Climbing Algorithm',
   'Distress Signal',
   'Regolith Reservoir',
-  'Beacon Exclusion Zone'
+  'Beacon Exclusion Zone',
+  'Proboscidea Volcanium'
 ];
 
 const dayTitle = (day) => DAY_TITLES[Number.parseInt(day) - 1];
