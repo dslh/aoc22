@@ -8,6 +8,7 @@ const Sensor = (spec) => {
 
   return {
     pos: sensor,
+    beacon,
     radius: (Math.abs(sensor.x - beacon.x) + Math.abs(sensor.y - beacon.y)),
 
     rowExtents(row) {

@@ -10,13 +10,18 @@ const findSpace = (sensors, row, limit) => {
   }
 };
 
-const partTwo = (sensors) => {
+export const spaceCoords = (sensors) => {
   const limit = sensors.length === 14 ? 20 : 4_000_000;
   for (let row = 0; row < limit; ++row) {
-    const space = findSpace(sensors, row, limit);
-    if (space !== undefined)
-      return space * 4_000_000 + row;
+    const col = findSpace(sensors, row, limit);
+    if (col !== undefined)
+      return { col, row };
   }
 }
+
+const partTwo = (sensors) => {
+  const { col, row } = spaceCoords(sensors);
+  return col * 4_000_000 + row;
+};
 
 export default partTwo;

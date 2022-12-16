@@ -8,15 +8,14 @@ import sample from 'input/15.sample.txt';
 
 import parser from './15/parser';
 import partOne from './15/part-one';
-import partTwo from './15/part-two';
+
+import View from './15/view';
 
 const Fifteen = () => (
-  <SourceLoader showParsed {...{input, sample, parser}}>{(data) => (
+  <SourceLoader {...{input, sample, parser}}>{(data) => (
     <Stack gap={2}>
-      <Stack gap={3} direction="horizontal" className="mx-auto">
-        <Memoizer title="Part one" data={data} func={partOne} />
-        <Memoizer title="Part two" data={data} func={partTwo} />
-      </Stack>
+      <Memoizer title="Part one" data={data} func={partOne} />
+      <View sensors={data} />
     </Stack>
   )}</SourceLoader>
 );
