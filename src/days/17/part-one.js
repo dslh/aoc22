@@ -6,10 +6,14 @@ const Block = (...coords) => {
   block.width = Math.max(...block.map(([x]) => x)) + 1;
   block.height = Math.max(...block.map(([,y]) => y)) + 1;
   block.colour = ++blockColour;
+  block.withOffset = function *(offset) {
+    for (const [x, y] of this)
+      yield { x: x + offset.x, y: y + offset.y };
+  };
   return block;
 };
 
-const BLOCKS = [
+export const BLOCKS = [
   // ####
   Block([0,0], [1,0], [2,0], [3,0]),
 
@@ -34,14 +38,14 @@ const BLOCKS = [
   Block([0,0], [0,1], [1,0], [1,1])
 ];
 
-const fixBlock = (grid, block, offsetX, offsetY) => {
-  for (const [x, y] of block)
-    grid.set({ x: x + offsetX, y: y + offsetY }, block.colour);
+const fixBlock = (grid, block, x, y) => {
+  for (const pos of block.withOffset({ x, y }))
+    grid.set(pos, block.colour);
 };
 
-const blockFits = (grid, block, offsetX, offsetY) => {
-  for (const [x, y] of block)
-    if (grid.get({x : x + offsetX, y: y + offsetY }))
+const blockFits = (grid, block, x, y) => {
+  for (const pos of block.withOffset({ x, y }))
+    if (grid.get(pos))
       return false;
 
   return true;
@@ -49,7 +53,7 @@ const blockFits = (grid, block, offsetX, offsetY) => {
 
 const inBounds = ({ width }, offsetX) => offsetX >= 0 && offsetX + width <= 7;
 
-const dropBlock = (grid, block, wind, windPos) => {
+export const dropBlock = (grid, block, wind, windPos) => {
   let x = 2;
   let y = (grid.max.y === undefined ? 0 : grid.max.y + 1) + 3;
   
@@ -68,27 +72,28 @@ const dropBlock = (grid, block, wind, windPos) => {
 const printGrid = (grid) => {
   const lines = [];
   for (let y = grid.max.y; y >= 0; --y) {
-    let str = '|';
+    let str = '';
     for (let x = 0; x < 7; ++x) {
       if (grid.get({ x, y}))
         str += '#';
       else
         str += '.';
     }
-    lines.push(str + '|');
+    lines.push('|' + str + '|');
   }
   lines.push('+-------+');
   console.log(lines.join('\n'));
 }
 
-const partOne = (wind) => {
+export const dropBlocks = (wind, count) => {
   const grid = Grid();
   let windPos = 0;
-  for (let i = 0; i < 2022; i++)
+  for (let i = 0; i < count; i++)
     windPos = dropBlock(grid, BLOCKS[i % BLOCKS.length], wind, windPos);
 
-  printGrid(grid);
-  return grid.max.y + 1;
+  return grid;
 };
+
+const partOne = (wind) => dropBlocks(wind, 2022).max.y + 1;
 
 export default partOne;
