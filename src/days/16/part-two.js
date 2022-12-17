@@ -1,36 +1,44 @@
-const visit = (network, workers, depth, worker = 0, valves = {}, availablePressure = network.availablePressure) => {
-  if (availablePressure === 0) return 0;
+import allShortestPaths from './all-shortest-paths';
 
-  worker = worker % workers.length;
-  if (worker === 0) depth--;
-  if (depth === 0) return 0;
-
-  const { pos, from } = workers[worker];
-  const { rate, links } = network[pos];
-
-  let max = 0;
-  if (rate && !valves[pos]) {
-    valves[pos] = true;
-    const pressure = rate * depth +
-      visit(network, workers, depth, worker + 1, valves, availablePressure - rate);
-    if (pressure > max) max = pressure;
-    delete valves[pos];
+const isDuplicate = (workers, i) => {
+  for (let j = 0; j < i; ++j) {
+    if (workers[i].valve === workers[j].valve &&
+        workers[i].timeRemaining == workers[j].timeRemaining)
+      return true;
   }
 
-  if (depth > 1) {
-    for (const link of links) {
-      if (link === from) continue;
-
-      workers[worker] = { pos: link, from: pos };
-      const pressure = visit(network, workers, depth, worker + 1, valves, availablePressure);
-      if (pressure > max) max = pressure;
-    }
-    workers[worker] = { pos, from };
-  }
-
-  return max;
+  return false;
 };
 
-const partTwo = (network) => visit(network, [{ pos: 'AA' }, { pos: 'AA' }], 26);
+const visit = (network, paths, workers, visited = {}) => {
+  let max = 0;
+  workers.forEach(({ valve }) => visited[valve] = true);
+  for (let i = 0; i < workers.length; ++i) {
+    if (isDuplicate(workers, i)) continue;
+    const { valve, timeRemaining } = workers[i];
+
+    for (const { name, dist } of paths[valve]) {
+      if (!visited[name] && dist < timeRemaining) {
+        workers[i].valve = name;
+        workers[i].timeRemaining -= dist;
+        const value = visit(network, paths, workers, visited);
+        workers[i].valve = valve;
+        workers[i].timeRemaining = timeRemaining;
+
+        if (max < value) max = value;
+      }
+    }
+  }
+  workers.forEach(({ valve }) => visited[valve] = true);
+
+  return workers.reduce((sum, { valve, timeRemaining }) => (
+    sum + network[valve].rate * timeRemaining
+  ), max);
+};
+
+const partTwo = (network) => {
+  const paths = allShortestPaths(network);
+  return visit(network, paths, [{ valve: 'AA', timeRemaining: 26}, { valve: 'AA', timeRemaining: 26 }]);
+};
 
 export default partTwo;

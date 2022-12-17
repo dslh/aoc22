@@ -1,38 +1,22 @@
-const visit = (network, node, valves = {}, from = null, depth = 0) => {
-  const { rate, links } = network[node];
+import allShortestPaths from './all-shortest-paths';
 
-  let best = { steps: [], rate: 0 };
-  if (depth >= 30) return best;
-
-  if (rate && !valves[node]) {
-    const base = { steps: [node, `+${node}`], rate: rate * (29 - depth) };
-    if (Object.keys(valves).length === network.valveCount) return base;
-
-    valves[node] = true;
-    for (const link of links) {
-      const linkBest = visit(network, link, valves, node, depth + 2);
-      if (linkBest.rate + base.rate > best.rate) {
-        best.rate = linkBest.rate + base.rate;
-        best.steps = base.steps.concat(linkBest.steps);
-      }
-    }
-
-    delete valves[node];
-  }
-
-  for (const link of links) {
-    if (link === from) continue;
-
-    const linkBest = visit(network, link, valves, node, depth + 1);
-    if (linkBest.rate > best.rate) {
-      best.rate = linkBest.rate;
-      best.steps = [node].concat(linkBest.steps);
+const visit = (network, paths, valve, timeRemaining, visited = {}) => {
+  let max = 0;
+  visited[valve] = true;
+  for (const { name, dist } of paths[valve]) {
+    if (!visited[name] && dist < timeRemaining) {
+      const value = visit(network, paths, name, timeRemaining - dist, visited);
+      if (max < value) max = value;
     }
   }
+  visited[valve] = false;
 
-  return best;
+  return timeRemaining * network[valve].rate + max;
 };
 
-const partOne = (network) => visit(network, 'AA').rate;
+const partOne = (network) => {
+  const paths = allShortestPaths(network);
+  return visit(network, paths, 'AA', 30);
+}
 
 export default partOne;
