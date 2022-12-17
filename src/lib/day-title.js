@@ -14,7 +14,8 @@ const DAY_TITLES = [
   'Distress Signal',
   'Regolith Reservoir',
   'Beacon Exclusion Zone',
-  'Proboscidea Volcanium'
+  'Proboscidea Volcanium',
+  'Pyroclastic Flow'
 ];
 
 const dayTitle = (day) => DAY_TITLES[Number.parseInt(day) - 1];
