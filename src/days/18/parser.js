@@ -1,7 +1,17 @@
-const Grid3d = () => ({
+export const Grid3d = () => ({
   grid: [],
+  min: {},
+  max: {},
 
   set({ x, y, z }, value = true) {
+    const { min, max, grid } = this;
+    if (min.x === undefined || min.x > x) min.x = x;
+    if (min.y === undefined || min.y > y) min.y = y;
+    if (min.z === undefined || min.z > z) min.z = z;
+    if (max.x === undefined || max.x < x) max.x = x;
+    if (max.y === undefined || max.y < y) max.y = y;
+    if (max.z === undefined || max.z < z) max.z = z;
+
     this.grid[x] ||= [];
     this.grid[x][y] ||= [];
     this.grid[x][y][z] = value;
@@ -17,6 +27,13 @@ const Grid3d = () => ({
         stack.forEach((value, z) => callback({ x, y, z }, value))
       )
     );
+  },
+
+  inBounds({ x, y, z }) {
+    const { min, max } = this;
+    return min.x <= x && x <= max.x &&
+           min.y <= y && y <= max.y &&
+           min.z <= z && z <= max.z;
   }
 });
 
