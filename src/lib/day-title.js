@@ -16,7 +16,8 @@ const DAY_TITLES = [
   'Beacon Exclusion Zone',
   'Proboscidea Volcanium',
   'Pyroclastic Flow',
-  'Boiling Boulders'
+  'Boiling Boulders',
+  'Not Enough Minerals'
 ];
 
 const dayTitle = (day) => DAY_TITLES[Number.parseInt(day) - 1];
