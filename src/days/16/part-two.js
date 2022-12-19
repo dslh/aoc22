@@ -1,40 +1,38 @@
 import allShortestPaths from './all-shortest-paths';
 
-const isDuplicate = (workers, i) => {
-  for (let j = 0; j < i; ++j) {
-    if (workers[i].valve === workers[j].valve &&
-        workers[i].timeRemaining == workers[j].timeRemaining)
+const isDuplicate = (workers, w) => {
+  const { valve, timeRemaining } = workers[w];
+  for (let i = 0; i < w; ++i)
+    if (workers[i].valve === valve && workers[i].timeRemaining === timeRemaining)
       return true;
-  }
-
-  return false;
-};
+}
 
 const visit = (network, paths, workers, visited = {}) => {
   let max = 0;
-  workers.forEach(({ valve }) => visited[valve] = true);
-  for (let i = 0; i < workers.length; ++i) {
-    if (isDuplicate(workers, i)) continue;
-    const { valve, timeRemaining } = workers[i];
 
-    for (const { name, dist } of paths[valve]) {
-      if (!visited[name] && dist < timeRemaining) {
-        workers[i].valve = name;
-        workers[i].timeRemaining -= dist;
-        const value = visit(network, paths, workers, visited);
-        workers[i].valve = valve;
-        workers[i].timeRemaining = timeRemaining;
+  for (let w = 0; w < workers.length; ++w) {
+    if (isDuplicate(workers, w)) continue;
+    const { valve, timeRemaining } = workers[w];
 
-        if (max < value) max = value;
-      }
+    for (const { name, dist } of Object.values(paths[valve])) {
+      if (visited[name]) continue;
+
+      const newWorker = { valve: name, timeRemaining: timeRemaining - dist };
+      if (newWorker.timeRemaining <= 0) continue;
+
+      const newState = [...workers];
+      newState[w] = newWorker;
+
+      visited[name] = true;
+      const value = newWorker.timeRemaining * network[name].rate +
+        visit(network, paths, newState, visited);
+      if (value > max) max = value;
+      visited[name] = false;
     }
   }
-  workers.forEach(({ valve }) => visited[valve] = true);
 
-  return workers.reduce((sum, { valve, timeRemaining }) => (
-    sum + network[valve].rate * timeRemaining
-  ), max);
-};
+  return max;
+}
 
 const partTwo = (network) => {
   const paths = allShortestPaths(network);

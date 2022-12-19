@@ -8,8 +8,9 @@ const makePath = (node) => {
 
 const shortestPaths = (network, from, toBeFound, visited = {}) => {
   const toVisit = network[from].links.map(name => ({ name, dist: 2 }));
+  let found = 0;
 
-  const paths = [];
+  const paths = {};
   while (toVisit.length) {
     const node = toVisit.shift();
     const { name, dist } = node;
@@ -19,8 +20,8 @@ const shortestPaths = (network, from, toBeFound, visited = {}) => {
 
     const valve = network[name];
     if (valve.rate) {
-      paths.push({ name, dist, path: makePath(node) });
-      if (paths.length === toBeFound) return paths;
+      paths[name] = { name, dist, path: makePath(node) };
+      if (++found === toBeFound) return paths;
     }
 
     for (const next of valve.links)

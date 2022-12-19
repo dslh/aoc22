@@ -3,7 +3,7 @@ import allShortestPaths from './all-shortest-paths';
 const visit = (network, paths, valve, timeRemaining, visited = {}) => {
   let max = 0;
   visited[valve] = true;
-  for (const { name, dist } of paths[valve]) {
+  for (const { name, dist } of Object.values(paths[valve])) {
     if (!visited[name] && dist < timeRemaining) {
       const value = visit(network, paths, name, timeRemaining - dist, visited);
       if (max < value) max = value;
