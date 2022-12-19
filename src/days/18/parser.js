@@ -12,9 +12,9 @@ export const Grid3d = () => ({
     if (max.y === undefined || max.y < y) max.y = y;
     if (max.z === undefined || max.z < z) max.z = z;
 
-    this.grid[x] ||= [];
-    this.grid[x][y] ||= [];
-    this.grid[x][y][z] = value;
+    grid[x] ||= [];
+    grid[x][y] ||= [];
+    grid[x][y][z] = value;
   },
 
   get({ x, y, z }) {
@@ -45,7 +45,6 @@ const parser = (data) => {
     grid.set({ x, y, z });
   });
 
-  console.log(grid);
   return grid;
 };
 

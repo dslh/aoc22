@@ -27,13 +27,19 @@ const increaseStock = (production, stock, robot, time) => {
   return increased;
 };
 
-const evalBlueprint = (
+export const evalBlueprint = (
   blueprint,
+  timeRemaining = 24,
   production = { ore: 1, clay: 0, obsidian: 0, geode: 0 },
-  stock = { ore: 0, clay: 0, obsidian: 0, geode: 0 },
-  timeRemaining = 24
+  stock = { ore: 0, clay: 0, obsidian: 0, geode: 0 }
 ) => {
   let max = 0;
+
+  if (timeRemaining === 1) return production.geode;
+
+  if (timeRemaining === 2)
+    return production.geode * 2 +
+      (stock.ore >= blueprint.geode.ore && stock.obsidian >= blueprint.geode.obsidian ? 1 : 0);
 
   for (const type of TYPES) {
     const robot = blueprint[type];
@@ -46,9 +52,9 @@ const evalBlueprint = (
 
     const value = time * production.geode + evalBlueprint(
       blueprint,
+      timeRemaining - time,
       increaseProduction(production, type),
-      increaseStock(production, stock, robot, time),
-      timeRemaining - time
+      increaseStock(production, stock, robot, time)
     );
 
     if (value > max) max = value;

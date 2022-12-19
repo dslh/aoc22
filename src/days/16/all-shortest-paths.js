@@ -28,8 +28,6 @@ const shortestPaths = (network, from, toBeFound, visited = {}) => {
       if (!visited[next])
         toVisit.push({ name: next, dist: dist + 1, prev: node });
   }
-
-  throw 'Missed something';
 };
 
 const allShortestPaths = (network) => {

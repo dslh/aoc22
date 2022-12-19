@@ -37,7 +37,7 @@ const isPocket = (droplet, pockets, pos) => {
   if (isPocket) return isPocket === IS_POCKET;
 
   fillPocket(droplet, pockets, pos);
-  return pockets.get(pos) == IS_POCKET;
+  return pockets.get(pos) === IS_POCKET;
 }
 
 const partTwo = droplet => {
