@@ -17,7 +17,8 @@ const DAY_TITLES = [
   'Proboscidea Volcanium',
   'Pyroclastic Flow',
   'Boiling Boulders',
-  'Not Enough Minerals'
+  'Not Enough Minerals',
+  'Grove Positioning System'
 ];
 
 const dayTitle = (day) => DAY_TITLES[Number.parseInt(day) - 1];
