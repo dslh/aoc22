@@ -1,5 +1,5 @@
-const Node = (value, prev, next) => ({
-  value, prev, next,
+const Node = (value) => ({
+  value,
 
   unlink() {
     this.prev.next = this.next;
@@ -14,49 +14,34 @@ const Node = (value, prev, next) => ({
   }
 });
 
-const isUnique = array => {
-  const seen = [];
-  for (let i = 0; i < array.length; ++i) {
-    if (seen[i]) return false;
-    seen[i] = true;
-  }
-  return true;
-};
+export const toLinkedList = array => {
+  const list = array.map(v => Node(v));
+  for (let i = 0; i < list.length - 1; ++i)
+    list[i].next = list[i + 1];
+  for (let i = 1; i < list.length; ++i)
+    list[i].prev = list[i - 1];
 
-const toLinkedList = array => {
+  const last = list[list.length - 1];
+  list[0].prev = last;
+  last.nxet = list[0];
   const start = Node(array[0]);
 
-  let node = start;
-  for (let i = 1; i < array.length; ++i) {
-    node = Node(array[i], node);
-    node.prev.next = node;
-  }
-  node.next = start;
-  start.prev = node;
-
-  if (!isUnique(array))
-    throw new Error('Algorithm assumes array elements are unique');
-
-  return start;
+  return list;
 };
 
 const distance = (n, length) => {
+  length = length - 1;
   const dist = ((n % length) + length) % length;
   if (dist > length / 2) return dist - length;
   return dist;
 }
 
-const mix = (start) => {
-  const queue = [];
-  let node = start;
-  do {
-    queue.push(node);
-    node = node.next;
-  } while (node !== start);
+export const mix = (list) => {
+  for (let i = 0; i < list.length; ++i) {
+    const node = list[i];
 
-  for (let i = 0; i < queue.length; ++i) {
-    node = queue[i];
-    let dist = node.value;
+    //let dist = node.value;
+    let dist = distance(node.value, list.length);
     if (!dist) continue;
 
     node.unlink();
@@ -71,20 +56,9 @@ const mix = (start) => {
   }
 }
 
-const partOne = array => {
-  const length = array.length;
-  const list = toLinkedList(array);
-
-  mix(list, length);
-
-  let node = list;
+export const score = list => {
+  let node = list[0];
   while (node.value !== 0) node = node.next;
-
-  let out = node;
-  do {
-    console.log(out.value);
-    out = out.next;
-  } while (out.value);
 
   let sum = 0;
   for (let i = 0; i < 3; ++i) {
@@ -95,6 +69,14 @@ const partOne = array => {
   }
 
   return sum;
+}
+
+const partOne = array => {
+  const list = toLinkedList(array);
+
+  mix(list);
+
+  return score(list);
 }
 
 export default partOne;

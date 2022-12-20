@@ -8,7 +8,7 @@ import sample from 'input/20.sample.txt';
 
 import parser from './20/parser';
 import partOne from './20/part-one';
-const partTwo = () => '👁';
+import partTwo from './20/part-two';
 
 const Twenty = () => (
   <SourceLoader {...{input, sample, parser}}>{(data) => (
