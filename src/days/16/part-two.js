@@ -1,42 +1,49 @@
 import allShortestPaths from './all-shortest-paths';
 
-const isDuplicate = (workers, w) => {
-  const { valve, timeRemaining } = workers[w];
-  for (let i = 0; i < w; ++i)
-    if (workers[i].valve === valve && workers[i].timeRemaining === timeRemaining)
-      return true;
-}
+const rates = (network) => {
+  const out = {};
+  for (const [valve, { rate }] of Object.entries(network))
+    out[valve] = rate;
+  return out;
+};
 
-const visit = (network, paths, workers, visited = {}) => {
-  let max = 0;
-
-  for (let w = 0; w < workers.length; ++w) {
-    if (isDuplicate(workers, w)) continue;
-    const { valve, timeRemaining } = workers[w];
-
-    for (const { name, dist } of Object.values(paths[valve])) {
-      if (visited[name]) continue;
-
-      const newWorker = { valve: name, timeRemaining: timeRemaining - dist };
-      if (newWorker.timeRemaining <= 0) continue;
-
-      const newState = [...workers];
-      newState[w] = newWorker;
-
+const explore = (rates, distances, valve, timeRemaining, paths, pressure = 0, visited = {}) => {
+  for (const { name, dist } of Object.values(distances[valve])) {
+    if (!visited[name] && dist < timeRemaining) {
+      const newTime = timeRemaining - dist;
+      const newPressure = newTime * rates[name] + pressure;
       visited[name] = true;
-      const value = newWorker.timeRemaining * network[name].rate +
-        visit(network, paths, newState, visited);
-      if (value > max) max = value;
-      visited[name] = false;
+
+      paths.push({ pressure: newPressure, visited: { ...visited } });
+      explore(rates, distances, name, newTime, paths, newPressure, visited);
+
+      delete visited[name];
+    }
+  }
+};
+
+const partTwo = (network) => {
+  const distances = allShortestPaths(network);
+  const paths = [];
+
+  explore(rates(network), distances, 'AA', 26, paths);
+
+  let max = 0;
+  for (let i = 1; i < paths.length; ++i) {
+    const a = paths[i];
+
+    for (let j = 0; j < i; ++j) {
+      const b = paths[j];
+
+      if (!Object.keys(a.visited).some(valve => b.visited[valve])) {
+        const pressure = a.pressure + b.pressure;
+        if (pressure > max)
+          max = pressure;
+      }
     }
   }
 
   return max;
-}
-
-const partTwo = (network) => {
-  const paths = allShortestPaths(network);
-  return visit(network, paths, [{ valve: 'AA', timeRemaining: 26}, { valve: 'AA', timeRemaining: 26 }]);
 };
 
 export default partTwo;
