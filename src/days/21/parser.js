@@ -1,27 +1,13 @@
-const OPS = {
-  '+': (a, b) => a + b,
-  '-': (a, b) => a - b,
-  '*': (a, b) => a * b,
-  '/': (a, b) => a / b
-};
-const OP = /^((?<literal>\d+)|(?<a>[a-z]{4}) (?<op>[-+*\/]) (?<b>[a-z]{4}))$/;
+const EXPRESSION = /^((?<literal>\d+)|(?<a>[a-z]{4}) (?<op>[-+*\/]) (?<b>[a-z]{4}))$/;
 
-const parseOp = expression => {
-  const { literal, a, b, op } = expression.match(OP).groups;
-  if (literal) {
-    const value = Number.parseInt(literal);
-    return () => value;
-  }
-
-  const fn = OPS[op];
-  return (registry) => (
-    fn(registry[a](registry), registry[b](registry))
-  )
+const parseExpression = (expression) => {
+  const { literal, a, b, op } = expression.match(EXPRESSION).groups;
+  return { a, b, op, literal: literal && Number.parseInt(literal) };
 }
 
 const parseMonkey = (monkey) => {
   const [name, expression] = monkey.split(': ');
-  return [name, parseOp(expression)];
+  return [name, parseExpression(expression)];
 }
 
 const parser = (data) => {
