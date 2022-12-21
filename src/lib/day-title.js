@@ -18,7 +18,8 @@ const DAY_TITLES = [
   'Pyroclastic Flow',
   'Boiling Boulders',
   'Not Enough Minerals',
-  'Grove Positioning System'
+  'Grove Positioning System',
+  'Monkey Math'
 ];
 
 const dayTitle = (day) => DAY_TITLES[Number.parseInt(day) - 1];

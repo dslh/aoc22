@@ -54,6 +54,7 @@ const App = () => (
               <Day day={18} />
               <Day day={19} />
               <Day day={20} />
+              <Day day={21} />
             </NavDropdown>
           </Nav>
         </Navbar.Collapse>
