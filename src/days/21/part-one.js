@@ -6,10 +6,8 @@ export const OPS = {
 };
 
 const compileOp = ({ literal, a, b, op }) => {
-  if (literal) {
-    const value = Number.parseInt(literal);
-    return () => value;
-  }
+  if (literal)
+    return () => literal;
 
   const fn = OPS[op];
   return (registry) => (
@@ -20,8 +18,8 @@ const compileOp = ({ literal, a, b, op }) => {
 export const compileRegistry = (monkeys, compiler = compileOp) => {
   const registry = {};
 
-  for (const [name, op] of Object.entries(monkeys))
-    registry[name] = compiler(op, name);
+  for (const monkey of monkeys)
+    registry[monkey.name] = compiler(monkey);
 
   return registry;
 };

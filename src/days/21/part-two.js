@@ -1,6 +1,6 @@
 import { OPS, compileRegistry } from './part-one';
 
-const compileOp = ({ literal, a, b, op }, name) => {
+const compileOp = ({ name, literal, a, b, op }) => {
   if (literal)
     return {
       value: literal,
@@ -59,7 +59,6 @@ const compileOp = ({ literal, a, b, op }, name) => {
 };
 
 const backtrack = (registry, name, child) => {
-  console.log(name);
   const monkey = registry[name];
 
   if (!child)
@@ -74,9 +73,6 @@ const backtrack = (registry, name, child) => {
 const partTwo = (monkeys) => {
   const registry = compileRegistry(monkeys, compileOp);
   registry['root'].compute(registry);
-
-  for (const [name, { value }] of Object.entries(registry))
-    console.log(name + ': ' + value);
 
   return backtrack(registry, 'humn');
 };

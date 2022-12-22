@@ -1,19 +1,10 @@
-const EXPRESSION = /^((?<literal>\d+)|(?<a>[a-z]{4}) (?<op>[-+*\/]) (?<b>[a-z]{4}))$/;
-
-const parseExpression = (expression) => {
-  const { literal, a, b, op } = expression.match(EXPRESSION).groups;
-  return { a, b, op, literal: literal && Number.parseInt(literal) };
-}
+const MONKEY = /^(?<name>[a-z]{4}): ((?<literal>\d+)|(?<a>[a-z]{4}) (?<op>[-+*\/]) (?<b>[a-z]{4}))$/;
 
 const parseMonkey = (monkey) => {
-  const [name, expression] = monkey.split(': ');
-  return [name, parseExpression(expression)];
+  const { name, literal, a, b, op } = monkey.match(MONKEY).groups;
+  return { name, a, b, op, literal: literal && Number.parseInt(literal) };
 }
 
-const parser = (data) => {
-  const registry = {};
-  data.split('\n').map(parseMonkey).forEach(([name, op]) => registry[name] = op);
-  return registry;
-};
+const parser = (data) => data.split('\n').map(parseMonkey);
 
 export default parser;
