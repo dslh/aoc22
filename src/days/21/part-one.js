@@ -5,7 +5,13 @@ export const OPS = {
   '/': (a, b) => a / b
 };
 
-const compileOp = ({ literal, a, b, op }) => {
+/**
+ * Each monkey is compiled into a function that either:
+ *  - if the monkey shouts a literal number, just returns the number.
+ *  - Otherwise, looks up the two child monkeys, calls their functions
+ *    recursively, and performs the specified operation on the results.
+ */
+const compileMonkey = ({ literal, a, b, op }) => {
   if (literal)
     return () => literal;
 
@@ -15,7 +21,11 @@ const compileOp = ({ literal, a, b, op }) => {
   )
 };
 
-export const compileRegistry = (monkeys, compiler = compileOp) => {
+/**
+ * Compile the monkeys into a map where they can be looked up by name.
+ * Compiler function can be swapped out for part 2.
+ */
+export const compileRegistry = (monkeys, compiler = compileMonkey) => {
   const registry = {};
 
   for (const monkey of monkeys)
