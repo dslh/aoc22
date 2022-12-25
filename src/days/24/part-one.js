@@ -21,11 +21,11 @@ function *moves(pos, step, width, height, isBlizzard) {
     yield pos;
 }
 
-const estimation = (pos, height, finish) => (
-  Math.abs(pos.x - finish) + height - pos.y
+const estimation = (pos, finish) => (
+  Math.abs(pos.x - finish.x) + Math.abs(pos.y - finish.y)
 );
 
-const commonMultiple = (a, b) => {
+export const commonMultiple = (a, b) => {
   if (a > b) [a, b] = [b, a];
 
   let c = a;
@@ -34,29 +34,37 @@ const commonMultiple = (a, b) => {
   return c;
 };
 
-const partOne = ({ width, height, start, finish, blizzards }) => {
-  const loop = commonMultiple(width, height);
-  const isBlizzard = StormTracker(blizzards, loop);
-
+export const search = ({ start, finish, width, height, isBlizzard, loop }) => {
   const queue = new MinPriorityQueue(pos => pos.estimate);
   const visited = Grid3d();
 
-  queue.push({ x: start, y: -1, step: 0, estimate: 0 });
-  visited.set({ x: start, y: -1, z: 0 });
+  queue.push(start);
+  visited.set({ ...start, z: start.step % loop });
 
   while (!queue.isEmpty()) {
     const pos = queue.pop();
     const step = pos.step + 1;
-    if (pos.x === finish && pos.y === height - 1)
+    if (pos.x === finish.x && Math.abs(pos.y - finish.y) === 1)
       return step;
 
     for (const move of moves(pos, step, width, height, isBlizzard)) {
       if (visited.get({ ...move, z: step % loop })) continue;
 
-      queue.push({ ...move, step, estimate: step + estimation(move, height, finish) });
+      queue.push({ ...move, step, estimate: step + estimation(move, finish) });
       visited.set({ ...move, z: step % loop });
     }
   }
+};
+
+const partOne = ({ width, height, start, finish, blizzards }) => {
+  const loop = commonMultiple(width, height);
+  const isBlizzard = StormTracker(blizzards, loop);
+
+  return search({
+    start: { x: start, y: -1, step: 0 },
+    finish: { x: finish, y: height },
+    width, height, isBlizzard, loop
+  });
 };
 
 export default partOne;
