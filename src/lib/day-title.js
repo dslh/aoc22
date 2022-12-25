@@ -19,7 +19,11 @@ const DAY_TITLES = [
   'Boiling Boulders',
   'Not Enough Minerals',
   'Grove Positioning System',
-  'Monkey Math'
+  'Monkey Math',
+  'Monkey Map',
+  'Unstable Diffusion',
+  'Blizzard Basin',
+  'Full of Hot Air'
 ];
 
 const dayTitle = (day) => DAY_TITLES[Number.parseInt(day) - 1];
