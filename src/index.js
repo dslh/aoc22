@@ -33,6 +33,10 @@ import Eighteen from './days/18';
 import Nineteen from './days/19';
 import Twenty from './days/20';
 import TwentyOne from './days/21';
+import TwentyTwo from './days/22';
+import TwentyThree from './days/23';
+import TwentyFour from './days/24';
+import TwentyFive from './days/25';
 
 import {
   Chart as ChartJS,
@@ -82,6 +86,10 @@ root.render(
           <Route path="19" element={<Nineteen />} />
           <Route path="20" element={<Twenty />} />
           <Route path="21" element={<TwentyOne />} />
+          <Route path="22" element={<TwentyTwo />} />
+          <Route path="23" element={<TwentyThree />} />
+          <Route path="24" element={<TwentyFour />} />
+          <Route path="25" element={<TwentyFive />} />
         </Route>
       </Route>
     </Routes>

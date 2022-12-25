@@ -1,4 +1,4 @@
-import { Grid3d } from './parser';
+import Grid3d  from 'lib/grid-3d';
 import { adjacency } from './part-one';
 
 const IS_POCKET = 1;

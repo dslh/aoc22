@@ -34,27 +34,7 @@ const App = () => (
               <Nav.Link>Home</Nav.Link>
             </LinkContainer>
             <NavDropdown title="Days" id="basic-navbar-dropdown">
-              <Day day={1} />
-              <Day day={2} />
-              <Day day={3} />
-              <Day day={4} />
-              <Day day={5} />
-              <Day day={6} />
-              <Day day={7} />
-              <Day day={8} />
-              <Day day={9} />
-              <Day day={10} />
-              <Day day={11} />
-              <Day day={12} />
-              <Day day={13} />
-              <Day day={14} />
-              <Day day={15} />
-              <Day day={16} />
-              <Day day={17} />
-              <Day day={18} />
-              <Day day={19} />
-              <Day day={20} />
-              <Day day={21} />
+              {[...Array(25)].map((_,i) => <Day key={i} day={i + 1} />)}
             </NavDropdown>
           </Nav>
         </Navbar.Collapse>
