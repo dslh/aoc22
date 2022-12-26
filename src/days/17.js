@@ -7,8 +7,9 @@ import input from 'input/17.txt';
 import sample from 'input/17.sample.txt';
 
 import partOne from './17/part-one';
+import partTwo from './17/part-two';
+
 const parser = data => data;
-const partTwo = () => '😵';
 
 const Seventeen = () => (
   <SourceLoader {...{input, sample, parser}}>{(data) => (

@@ -1,15 +1,20 @@
 import Grid from 'lib/grid';
 
+export const WIDTH = 7;
+
 let blockColour = 0;
 const Block = (...coords) => {
   const block = coords;
+
   block.width = Math.max(...block.map(([x]) => x)) + 1;
   block.height = Math.max(...block.map(([,y]) => y)) + 1;
   block.colour = ++blockColour;
+
   block.withOffset = function *(offset) {
     for (const [x, y] of this)
       yield { x: x + offset.x, y: y + offset.y };
   };
+
   return block;
 };
 
@@ -38,9 +43,12 @@ export const BLOCKS = [
   Block([0,0], [0,1], [1,0], [1,1])
 ];
 
-const fixBlock = (grid, block, x, y) => {
+const fixBlock = (grid, b, x, y, w) => {
+  const block = BLOCKS[b % BLOCKS.length];
+  const value = { wind: w, block: b, colour: block.colour };
+
   for (const pos of block.withOffset({ x, y }))
-    grid.set(pos, block.colour);
+    grid.set(pos, value);
 };
 
 const blockFits = (grid, block, x, y) => {
@@ -51,29 +59,31 @@ const blockFits = (grid, block, x, y) => {
   return true;
 };
 
-const inBounds = ({ width }, offsetX) => offsetX >= 0 && offsetX + width <= 7;
+const inBounds = ({ width }, offsetX) => offsetX >= 0 && offsetX + width <= WIDTH;
 
-export const dropBlock = (grid, block, wind, windPos) => {
+export const dropBlock = (grid, blockPos, wind, windPos) => {
   let x = 2;
   let y = (grid.max.y === undefined ? 0 : grid.max.y + 1) + 3;
+  const block = BLOCKS[blockPos % BLOCKS.length];
   
   for (let i = windPos; ; ++i, --y) {
-    const shift = wind.charAt(i % wind.length) === '<' ? -1 : 1;
+    const w = i % wind.length;
+    const shift = wind.charAt(w) === '<' ? -1 : 1;
     if (inBounds(block, x + shift) && blockFits(grid, block, x + shift, y))
       x += shift;
 
     if (!y || !blockFits(grid, block, x, y - 1)) {
-      fixBlock(grid, block, x, y);
+      fixBlock(grid, blockPos, x, y, w);
       return i + 1;
     }
   }
 };
 
-const printGrid = (grid) => {
+export const printGrid = (grid) => {
   const lines = [];
   for (let y = grid.max.y; y >= 0; --y) {
     let str = '';
-    for (let x = 0; x < 7; ++x) {
+    for (let x = 0; x < WIDTH; ++x) {
       if (grid.get({ x, y}))
         str += '#';
       else
@@ -88,8 +98,8 @@ const printGrid = (grid) => {
 export const dropBlocks = (wind, count) => {
   const grid = Grid();
   let windPos = 0;
-  for (let i = 0; i < count; i++)
-    windPos = dropBlock(grid, BLOCKS[i % BLOCKS.length], wind, windPos);
+  for (let block = 0; block < count; block++)
+    windPos = dropBlock(grid, block, wind, windPos);
 
   return grid;
 };
