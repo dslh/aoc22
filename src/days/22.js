@@ -6,8 +6,8 @@ import Memoizer from 'components/memoizer';
 import input from 'input/22.txt';
 import sample from 'input/22.sample.txt';
 
-import parser from './22/parser';
 import partOne from './22/part-one';
+const parser = input => input;
 const partTwo = () => 'please hold';
 
 const TwentyTwo = () => (

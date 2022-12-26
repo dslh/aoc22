@@ -1,3 +1,19 @@
+import Grid from 'lib/grid';
+
+export const DIRS = ['up', 'down', 'left', 'right'];
+export const INVERSE_DIRS = {
+  up:    'down',
+  down:  'up',
+  left:  'right',
+  right: 'left'
+};
+const DIR_COORDS = {
+  right: ({ x, y }) => ({ x: x + 1, y }),
+  left:  ({ x, y }) => ({ x: x - 1, y }),
+  down:  ({ x, y }) => ({ x, y: y + 1 }),
+  up:    ({ x, y }) => ({ x, y: y - 1 })
+};
+
 const MOVE = /((?<move>\d+)|(?<turn>[LR]))/g
 
 const parseMoves = (moves) => [...moves.matchAll(MOVE)].map(match => {
@@ -9,61 +25,26 @@ const parseMoves = (moves) => [...moves.matchAll(MOVE)].map(match => {
 });
 
 const parseMap = (input) => {
-  const lines = input.split('\n');
-  const width = Math.max(...lines.map(row => row.length));
+  const grid = Grid();
 
-  const yWrap = new Array(width).fill(-1);
+  input.split('\n').forEach((line, y) => {
+    for (let x = 0; x < line.length; ++x) {
+      const chr = line.charAt(x);
+      if (chr === ' ') continue;
 
-  const rows = [];
-  rows[-1] = [];
-  const wrapY = (x, y) => {
-    if (yWrap[x] !== y - 1) {
-      (rows[yWrap[x]][x] ||= {}).y = y - 1;
-      (rows[y][x] ||= {}).y = yWrap[x] + 1;
+      const pos = { x, y, wall: chr === '#' };
+      grid.set(pos, pos);
     }
-
-    yWrap[x] = y;
-  };
-
-  lines.forEach((str, y) => {
-    const row = [];
-    rows.push(row);
-
-    let xWrap = -1;
-    const wrapX = (x) => {
-      if (xWrap !== x - 1) {
-        (row[xWrap] ||= {}).x = x - 1;
-        (row[x] ||= {}).x = xWrap + 1;
-      }
-
-      xWrap = x;
-    }
-
-    for (let x = 0; x < str.length; ++x) {
-      const chr = str.charAt(x);
-      if (chr === ' ') {
-        wrapX(x);
-        wrapY(x, y);
-      } else {
-        row[x] = chr;
-      }
-    }
-
-    wrapX(str.length);
-
-    for (let x = str.length; x < width; ++x) {
-      wrapY(x, y);
-    }
-
-    return row;
   });
 
-  rows.push([]);
-  const y = lines.length;
-  for (let x = 0; x < width; ++x)
-    wrapY(x, y);
+  grid.forEach(({ x, y }, node) => {
+    for (const dir of DIRS) {
+      const to = grid.get(DIR_COORDS[dir](node));
+      if (to) node[dir] = { to };
+    }
+  });
 
-  return rows;
+  return grid;
 };
 
 const parser = (data) => {

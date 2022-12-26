@@ -1,59 +1,64 @@
+import parser, { DIRS, INVERSE_DIRS } from './parser';
+
 const TURN = {
   L: {
-    U: 'L',
-    D: 'R',
-    L: 'D',
-    R: 'U'
+    up:    'left',
+    left:  'down',
+    down:  'right',
+    right: 'up'
   },
   R: {
-    U: 'R',
-    D: 'L',
-    L: 'U',
-    R: 'D'
+    up:    'right',
+    right: 'down',
+    down:  'left',
+    left:  'up'
   }
-};
+}
 const changeDir = (turn, dir) => TURN[turn][dir];
 
-const DIRS = {
-  U: [ 0, -1],
-  D: [ 0,  1],
-  L: [-1,  0],
-  R: [ 1,  0]
-};
-const nextPos = (map, pos, dir) => {
-  const [dX, dY] = DIRS[dir];
-  const next = { x: pos.x + dX, y: pos.y + dY };
+const DIR_SCORE = ['right', 'down', 'left', 'up'];
+const score = ({ node: { x, y }, dir }) => (y + 1) * 1000 + (x + 1) * 4 + DIR_SCORE.indexOf(dir);
 
-  const maybe = map[next.y][next.x];
-  if (typeof maybe === 'object') {
-    if (dX) next.x = maybe.x;
-    if (dY) next.y = maybe.y;
+const stitchEdges = (map) => map.forEach((_, node) => {
+  for (const dir of DIRS) {
+    if (node[dir]) continue;
+
+    const invDir = INVERSE_DIRS[dir];
+    let to = node;
+    while (to[invDir]) to = to[invDir].to;
+    node[dir] = { to };
+    to[invDir] = { to: node };
+  }
+});
+
+const doMove = (distance, node, dir) => {
+  for (let i = 0; i < distance; ++i) {
+    const dest = node[dir];
+    if (dest.to.wall) break;
+
+    dir = dest.dir || dir;
+    node = dest.to;
   }
 
-  if (map[next.y][next.x] === '.')
-    return next;
+  return { node, dir };
 };
 
-const DIR_SCORE = ['R', 'D', 'L', 'U'];
-const score = ({ x, y }, dir) => (y + 1) * 1000 + (x + 1) * 4 + DIR_SCORE.indexOf(dir);
+const followInstruction = ({ move, turn }, { node, dir }) => {
+  if (turn)
+    return { node, dir: changeDir(turn, dir) };
+  else
+    return doMove(move, node, dir);
+};
 
-const partOne = ({ map, moves }) => {
-  let pos = { x: map[0].indexOf('.'), y: 0 };
-  let dir = 'R';
+const partOne = (input) => {
+  const { map, moves } = parser(input);
+  stitchEdges(map);
 
-  for (const { move, turn } of moves) {
-    if (move) {
-      for (let i = 0; i < move; ++i) {
-        const next = nextPos(map, pos, dir);
-        if (!next) break;
-        pos = next;
-      }
-    } else {
-      dir = changeDir(turn, dir);
-    }
-  }
+  let pos = { node: map.get({ x: input.indexOf('.'), y: 0 }), dir: 'right' };
+  for (const instruction of moves)
+    pos = followInstruction(instruction, pos);
 
-  return score(pos, dir);
+  return score(pos);
 };
 
 export default partOne;
