@@ -1,7 +1,6 @@
 import Stack from 'react-bootstrap/Stack';
 
 import SourceLoader from 'components/source-loader';
-import Memoizer from 'components/memoizer';
 
 import input from 'input/25.txt';
 import sample from 'input/25.sample.txt';
@@ -9,7 +8,6 @@ import sample from 'input/25.sample.txt';
 import partOne from './25/part-one';
 
 const parser = data => data.split('\n');
-const partTwo = () => 'wait';
 
 const TwentyFive = () => (
   <SourceLoader {...{input, sample, parser}}>{(data) => (

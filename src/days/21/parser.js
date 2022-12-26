@@ -1,4 +1,4 @@
-const MONKEY = /^(?<name>[a-z]{4}): ((?<literal>\d+)|(?<a>[a-z]{4}) (?<op>[-+*\/]) (?<b>[a-z]{4}))$/;
+const MONKEY = /^(?<name>[a-z]{4}): ((?<literal>\d+)|(?<a>[a-z]{4}) (?<op>[-+*/]) (?<b>[a-z]{4}))$/;
 
 /**
  * Pretty much just converting each line into an object, giving names to the key parts.
