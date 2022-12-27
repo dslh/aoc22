@@ -7,8 +7,8 @@ import input from 'input/22.txt';
 import sample from 'input/22.sample.txt';
 
 import partOne from './22/part-one';
+import partTwo from './22/part-two';
 const parser = input => input;
-const partTwo = () => 'please hold';
 
 const TwentyTwo = () => (
   <SourceLoader showParsed {...{input, sample, parser}}>{(data) => (

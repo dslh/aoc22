@@ -14,10 +14,10 @@ const TURN = {
     left:  'up'
   }
 }
-const changeDir = (turn, dir) => TURN[turn][dir];
+export const changeDir = (turn, dir) => TURN[turn][dir];
 
 const DIR_SCORE = ['right', 'down', 'left', 'up'];
-const score = ({ node: { x, y }, dir }) => (y + 1) * 1000 + (x + 1) * 4 + DIR_SCORE.indexOf(dir);
+export const score = ({ node: { x, y }, dir }) => (y + 1) * 1000 + (x + 1) * 4 + DIR_SCORE.indexOf(dir);
 
 const stitchEdges = (map) => map.forEach((_, node) => {
   for (const dir of DIRS) {
@@ -43,18 +43,22 @@ const doMove = (distance, node, dir) => {
   return { node, dir };
 };
 
-const followInstruction = ({ move, turn }, { node, dir }) => {
+export const followInstruction = ({ move, turn }, { node, dir }) => {
   if (turn)
     return { node, dir: changeDir(turn, dir) };
   else
     return doMove(move, node, dir);
 };
 
+export const startPos = (map, input) => (
+  { node: map.get({ x: input.indexOf('.'), y: 0 }), dir: 'right' }
+);
+
 const partOne = (input) => {
   const { map, moves } = parser(input);
   stitchEdges(map);
 
-  let pos = { node: map.get({ x: input.indexOf('.'), y: 0 }), dir: 'right' };
+  let pos = startPos(map, input);
   for (const instruction of moves)
     pos = followInstruction(instruction, pos);
 
