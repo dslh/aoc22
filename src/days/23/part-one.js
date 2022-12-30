@@ -42,20 +42,23 @@ export const step = (grid, step) => {
   const next = HashGrid();
 
   let happy = 0;
-  grid.forEach(pos => {
+  grid.forEach((pos, { key }) => {
+    const elf = { pos, key };
     if (isHappy(grid, pos)) {
       happy++;
-      next.set(pos, [pos]);
+      elf.happy = true;
+      next.set(pos, [elf]);
       return;
     }
 
     const newPos = nextPos(grid, pos, step) || pos;
+    if (newPos === pos) elf.lazy = true;
 
     const queue = next.get(newPos);
     if (queue)
-      queue.push(pos);
+      queue.push(elf);
     else
-      next.set(newPos, [pos]);
+      next.set(newPos, [elf]);
   });
 
   if (happy === grid.count)
@@ -63,10 +66,10 @@ export const step = (grid, step) => {
 
   next.forEach((pos, queue) => {
     if (queue.length === 1) {
-      next.set(pos, true);
+      next.set(pos, queue[0]);
     } else {
-      for (const oldPos of queue) {
-        next.set(oldPos);
+      for (const { pos: oldPos, key } of queue) {
+        next.set(oldPos, { pos: oldPos, key, sad: true });
       }
       next.del(pos);
     }

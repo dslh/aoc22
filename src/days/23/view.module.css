@@ -1,0 +1,27 @@
+.partOne {
+  white-space: nowrap;
+  display: inline-flex;
+}
+.partOne > span {
+  margin-left: 0.4em;
+}
+
+.field {
+  margin: 150px auto;
+  position: relative;
+}
+
+.elf {
+  position: absolute;
+  background-color: #BAD7F2;
+  border-radius: 4px;
+  border: 1px solid black;
+  width: 8px;
+  height: 8px;
+  transition: top 100ms ease-in,
+              left 100ms ease-in,
+              background-color 100ms linear;
+}
+.elf.happy { background-color: #B0F2B4; }
+.elf.sad { background-color: #F2BAC9; }
+.elf.lazy { background-color: #F2E2BA; }
