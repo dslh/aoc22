@@ -7,43 +7,37 @@ const rates = (network) => {
   return out;
 };
 
-const explore = (rates, distances, valve, timeRemaining, paths, pressure = 0, visited = {}) => {
-  for (const { name, dist } of Object.values(distances[valve])) {
-    if (!visited[name] && dist < timeRemaining) {
-      const newTime = timeRemaining - dist;
-      const newPressure = newTime * rates[name] + pressure;
-      visited[name] = true;
+const visit = (
+  rates, paths, valve, initialTime, timeRemaining = initialTime, agents = 2, visited = {}
+) => {
+  let max = 0;
+  visited[valve] = true;
+  for (const { name, dist } of Object.values(paths[valve])) {
+    const newTime = timeRemaining - dist;
+    if (visited[name] || newTime <= 0)
+      continue;
 
-      paths.push({ pressure: newPressure, visited: { ...visited } });
-      explore(rates, distances, name, newTime, paths, newPressure, visited);
+    const value = visit(rates, paths, name, initialTime, newTime, agents, visited);
 
-      delete visited[name];
-    }
+    if (value > max)
+      max = value;
   }
+
+  if (agents > 1) {
+    const nextAgent = visit(rates, paths, 'AA', initialTime, initialTime, agents - 1, visited);
+    if (nextAgent > max)
+      max = nextAgent;
+  }
+
+  visited[valve] = false;
+
+  return timeRemaining * rates[valve] + max;
 };
 
 const partTwo = (network) => {
-  const distances = allShortestPaths(network);
-  const paths = [];
+  const paths = allShortestPaths(network);
 
-  explore(rates(network), distances, 'AA', 26, paths);
-
-  let max = 0;
-  for (let i = 1; i < paths.length; ++i) {
-    const a = paths[i];
-
-    for (let j = 0; j < i; ++j) {
-      const b = paths[j];
-
-      if (!Object.keys(a.visited).some(valve => b.visited[valve])) {
-        const pressure = a.pressure + b.pressure;
-        if (pressure > max)
-          max = pressure;
-      }
-    }
-  }
-
-  return max;
+  return visit(rates(network), paths, 'AA', 26);
 };
 
 export default partTwo;
