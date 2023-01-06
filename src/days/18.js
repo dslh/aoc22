@@ -10,13 +10,16 @@ import parser from './18/parser';
 import partOne from './18/part-one';
 import partTwo from './18/part-two';
 
+import View from './18/view';
+
 const Eighteen = () => (
-  <SourceLoader showParsed {...{input, sample, parser}}>{(data) => (
+  <SourceLoader {...{input, sample, parser}}>{(data) => (
     <Stack gap={2}>
       <Stack gap={3} direction="horizontal" className="mx-auto">
         <Memoizer title="Part one" data={data} func={partOne} />
         <Memoizer title="Part two" data={data} func={partTwo} />
       </Stack>
+      <View coords={data} />
     </Stack>
   )}</SourceLoader>
 );

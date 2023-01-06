@@ -1,5 +1,5 @@
 import Grid3d  from 'lib/grid-3d';
-import { adjacency } from './part-one';
+import { adjacency, toGrid } from './part-one';
 
 const IS_POCKET = 1;
 const NOT_POCKET = 2;
@@ -40,8 +40,9 @@ const isPocket = (droplet, pockets, pos) => {
   return pockets.get(pos) === IS_POCKET;
 }
 
-const partTwo = droplet => {
+const partTwo = coords => {
   let faces = 0;
+  const droplet = toGrid(coords);
   const pockets = Grid3d();
 
   droplet.forEach(cube => {
