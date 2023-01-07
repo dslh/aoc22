@@ -12,7 +12,7 @@ const useGeneratorCallback = (generator, args, interval, callback) => {
     const timeout = () => {
       const { value, done } = iterator.next();
 
-      if (value !== undefined) savedCallback.current(value);
+      if (!(value === undefined && done)) savedCallback.current(value);
 
       if (done) return;
 

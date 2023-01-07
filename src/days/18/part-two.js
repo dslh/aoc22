@@ -1,5 +1,6 @@
 import Grid3d  from 'lib/grid-3d';
-import { adjacency, toGrid } from './part-one';
+import { toGrid } from './part-one';
+import adjacency from './adjacency';
 
 const IS_POCKET = 1;
 const NOT_POCKET = 2;

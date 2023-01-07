@@ -46,8 +46,8 @@ const LINE_MATERIALS = {
 
 const MESH_MATERIALS = {
   hot: <meshStandardMaterial color="#F18F01" side={DoubleSide} transparent={true} opacity={0.2} />,
-  cold: <meshStandardMaterial color="#2F2D2E" side={DoubleSide} transparent={true} opacity={0.4} />,
-  water: <meshStandardMaterial color="#048BA8" side={DoubleSide} transparent={true} opacity={0.4} />
+  cold: <meshStandardMaterial color="#2F2D2E" side={DoubleSide} transparent={true} opacity={0.1} />,
+  water: <meshStandardMaterial color="#048BA8" side={DoubleSide} transparent={true} opacity={0.1} />
 };
 
 const Face = ({ position, side, color = 'hot' }) => (
