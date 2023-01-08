@@ -11,9 +11,9 @@ const Framing = ({ grid }) => {
   ]), [grid]);
 
   useEffect(() => {
-    camera.position.x = grid.max.x + 1;
-    camera.position.y = grid.max.y + 1;
-    camera.position.z = grid.max.z + 1;
+    camera.position.x = grid.max.x * 1.5;
+    camera.position.y = grid.max.y * 1.5;
+    camera.position.z = grid.max.z * 1.5;
     camera.lookAt(target);
   }, [grid, target, camera]);
 
