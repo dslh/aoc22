@@ -10,6 +10,8 @@ import parser from './21/parser';
 import partOne from './21/part-one';
 import partTwo from './21/part-two';
 
+import Tree from './21/tree';
+
 const TwentyOne = () => (
   <SourceLoader showParsed {...{input, sample, parser}}>{(data) => (
     <Stack gap={2}>
@@ -17,6 +19,7 @@ const TwentyOne = () => (
         <Memoizer title="Part one" data={data} func={partOne} />
         <Memoizer title="Part two" data={data} func={partTwo} />
       </Stack>
+      <Tree monkeys={data} />
     </Stack>
   )}</SourceLoader>
 );
