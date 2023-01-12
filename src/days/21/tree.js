@@ -1,15 +1,9 @@
 import { useMemo } from 'react';
 import { compileRegistry } from './part-one';
 
-const lineCoords = (x, y, width, horizontal) => {
-  const rX = horizontal ? width : 0;
-  const rY = horizontal ? 0 : width;
+import { Y_STEP, Y_OFFSET } from './consts';
 
-  return {
-    x1: x - rX, y1: y - rY,
-    x2: x + rX, y2: y + rY
-  };
-};
+import Monkey from './monkey';
 
 const setDepth = (monkeys, monkey, depth = 0) => {
   monkey.depth = depth;
@@ -44,43 +38,22 @@ const setOffsets = (monkeys) => {
 
   depthSets.forEach(set => {
     set.sort((a, b) => a.path.localeCompare(b.path))
-    const step = 1000 / (set.length + 1);
+    const step = 1200 / (set.length + 1);
     set.forEach((monkey, i) => monkey.offset = (i + 1) * step);
   });
 };
 
-const Monkey = ({ x, y, width, horizontal, monkeys, monkey: { name, a, b, op, literal } }) => {
-  const endpoints = lineCoords(x, y, width, horizontal);
-  const subwidth = horizontal ? width : width / 2;
-
-  return <>
-    {op && <>
-      <line stroke="black" {...endpoints} />
-      <Monkey x={endpoints.x1} y={endpoints.y1} width={subwidth} horizontal={!horizontal}
-              monkeys={monkeys} monkey={monkeys[a]} />
-      <Monkey x={endpoints.x2} y={endpoints.y2} width={subwidth} horizontal={!horizontal}
-              monkeys={monkeys} monkey={monkeys[b]} />
-    </>}
-    <circle cx={x} cy={y} r={6} stroke="red" fill="white" />
-    <text x={x} y={y + 12} fontSize="6px" textAnchor="middle" fill="black">{name}</text>
-    <text x={x} y={y + 3} fontSize="10px" fontWeight="bold" textAnchor="middle" fill="black">
-      {literal ? literal : op}
-    </text>
-  </>;
-}
-
 const Tree = ({ monkeys: monkeyList }) => {
-  const monkeys = compileRegistry(monkeyList, m => m);
+  const monkeys = useMemo(() => compileRegistry(monkeyList, m => m), [monkeyList]);
   const depths = useMemo(() => {
     setPath(monkeys, monkeys.root);
-    const depths = countDepths(monkys);
+    const depths = countDepths(monkeys);
     setOffsets(monkeys);
     return depths;
-  });
+  }, [monkeys]);
 
-  return <svg width="1000" height="800" className="mx-auto">
-    <Monkey x={400} y={400} width={200} horizontal={true}
-            monkeys={monkeys} monkey={monkeys.root} />
+  return <svg width={1200} height={depths.length * Y_STEP + Y_OFFSET * 2} className="mx-auto">
+    <Monkey key={monkeyList.length} monkeys={monkeys} monkey={monkeys.root} />
   </svg>
 };
 
