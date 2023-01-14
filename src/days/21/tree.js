@@ -53,7 +53,7 @@ const Tree = ({ monkeys: monkeyList }) => {
   }, [monkeys]);
 
   return <svg width={1200} height={depths.length * Y_STEP + Y_OFFSET * 2} className="mx-auto">
-    <Monkey key={monkeyList.length} monkeys={monkeys} monkey={monkeys.root} />
+    <Monkey key={monkeyList.length} monkeys={monkeys} monkey={monkeys.root} onShout={console.log} />
   </svg>
 };
 
